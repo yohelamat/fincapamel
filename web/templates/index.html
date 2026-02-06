@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,15 +10,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- VARIABLES DE COLOR (Soporte Dark Mode) --- */
+        /* --- VARIABLES DE COLOR --- */
         :root {
-            /* Colores de Marca */
             --verde-principal: #2E5C38; 
             --teja-azuero: #D35400;    
             --whatsapp: #25D366;
             --email: #3498DB;
 
-            /* Colores Dinámicos */
+            /* Colores Light Mode */
             --bg-body: #F9F9F9;
             --bg-card: #ffffff;
             --bg-header: #ffffff;
@@ -27,13 +27,13 @@
             --borde: #eeeeee;
         }
 
-        /* CLASE DARK MODE */
+        /* Colores Dark Mode */
         body.dark-mode {
             --bg-body: #121212;
             --bg-card: #1e1e1e;
             --bg-header: #1a1a1a;
-            --texto-principal: #f0f0f0;
-            --texto-secundario: #cccccc;
+            --texto-principal: #ffffff;
+            --texto-secundario: #dddddd;
             --sombra: rgba(0,0,0,0.3);
             --borde: #333333;
         }
@@ -51,15 +51,16 @@
         }
 
         img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; }
 
         h1, h2, h3 {
             font-family: 'Montserrat', sans-serif;
             color: var(--verde-principal);
             font-weight: 700;
         }
-
+        
         body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 {
-            color: #4CAF50; 
+            color: #4CAF50; /* Verde más brillante para fondo negro */
         }
 
         /* --- HEADER --- */
@@ -88,7 +89,6 @@
         .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
         
         .nav-links a { 
-            text-decoration: none; 
             color: var(--texto-secundario); 
             font-weight: 600; 
             text-transform: uppercase; 
@@ -97,33 +97,58 @@
         }
         .nav-links a:hover { color: var(--verde-principal); }
 
-        /* Controles de Idioma y Tema */
+        /* --- CONTROLES (Idioma y Tema) --- */
         .controls {
             display: flex;
-            gap: 10px;
             align-items: center;
             margin-left: 20px;
-            border-left: 1px solid var(--borde);
             padding-left: 20px;
+            border-left: 1px solid var(--borde);
+            gap: 15px; /* Espacio entre selector e icono */
         }
 
-        .lang-btn {
-            background: none;
+        /* Selector de Idioma */
+        .lang-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--texto-secundario);
+        }
+        
+        .lang-select {
+            appearance: none; 
+            background-color: var(--bg-header);
             border: 1px solid var(--borde);
             color: var(--texto-principal);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
             cursor: pointer;
-            padding: 5px 8px;
-            border-radius: 5px;
-            font-size: 0.75rem;
-            font-weight: bold;
+            outline: none;
+            transition: 0.3s;
         }
-        .lang-btn:hover { background: var(--verde-principal); color: white; border-color: var(--verde-principal); }
+        
+        .lang-select:hover { border-color: var(--verde-principal); }
 
+        .lang-select option {
+            background-color: var(--bg-header);
+            color: var(--texto-principal);
+        }
+
+        /* Botón de Tema (Luna/Sol) */
         .theme-toggle {
             cursor: pointer;
             color: var(--texto-principal);
             font-size: 1.2rem;
-            margin-left: 5px;
+            padding: 5px;
+            transition: transform 0.3s, color 0.3s;
+        }
+        .theme-toggle:hover { 
+            transform: rotate(15deg); 
+            color: var(--verde-principal); 
         }
 
         /* --- HERO --- */
@@ -138,7 +163,6 @@
             height: 450px; 
             object-fit: cover; 
             object-position: center; 
-            display: block;
         }
         
         @media (max-width: 768px) {
@@ -180,7 +204,7 @@
         .intro-text { text-align: center; max-width: 800px; margin: 0 auto; }
         .intro-text p { font-size: 1.1rem; color: var(--texto-secundario); }
 
-        /* --- CARRUSEL --- */
+/* --- CARRUSEL AJUSTADO PARA 4 FOTOS --- */
         .carousel-container {
             position: relative;
             width: 100%;
@@ -192,7 +216,8 @@
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             opacity: 0;
-            animation: fade 24s infinite;
+            /* Ciclo total de 20 segundos (5s x 4 fotos) */
+            animation: fade 20s infinite; 
             display: flex; align-items: center; justify-content: center;
         }
         .carousel-slide img {
@@ -201,42 +226,59 @@
             border-radius: 12px;
             box-shadow: 0 5px 15px var(--sombra);
         }
+        
+        /* TIEMPOS DE ENTRADA (Cada 5 segundos entra una nueva) */
         .carousel-slide:nth-child(1) { animation-delay: 0s; }
-        .carousel-slide:nth-child(2) { animation-delay: 4s; }
-        .carousel-slide:nth-child(3) { animation-delay: 8s; }
-        .carousel-slide:nth-child(4) { animation-delay: 12s; }
-        .carousel-slide:nth-child(5) { animation-delay: 16s; }
-        .carousel-slide:nth-child(6) { animation-delay: 20s; }
+        .carousel-slide:nth-child(2) { animation-delay: 5s; }
+        .carousel-slide:nth-child(3) { animation-delay: 10s; }
+        .carousel-slide:nth-child(4) { animation-delay: 15s; }
+        
+        /* ANIMACIÓN CALCULADA PARA 4 ELEMENTOS (100% / 4 = 25%) */
         @keyframes fade {
-            0% { opacity: 0; } 4% { opacity: 1; } 20% { opacity: 1; } 24% { opacity: 0; } 100% { opacity: 0; }
+            0% { opacity: 0; }
+            5% { opacity: 1; }  /* Aparece rápido */
+            20% { opacity: 1; } /* Se queda visible */
+            25% { opacity: 0; } /* Desaparece justo cuando entra la siguiente */
+            100% { opacity: 0; }
         }
 
         /* --- GRID --- */
         .grid-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            gap: 25px;
             margin-top: 2rem;
         }
-        .card-item {
-            border-radius: 12px; overflow: hidden;
+        
+        .card-link {
+            display: block; 
+            border-radius: 12px; 
+            overflow: hidden;
             box-shadow: 0 5px 15px var(--sombra);
             background: var(--bg-card);
             border: 1px solid var(--borde);
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        .card-item:hover { transform: translateY(-5px); }
-        .card-item img { width: 100%; height: 220px; object-fit: cover; }
+        .card-link:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        .card-link img { width: 100%; height: 220px; object-fit: cover; }
+        
         .card-info { padding: 1.5rem; text-align: center; }
-        .card-info h3 { color: var(--verde-principal); margin-bottom: 0.5rem; }
-
-        /* --- SERVICIOS --- */
-        .servicios-section { background-color: var(--bg-card); padding: 3rem 0; border-top: 1px solid var(--borde); border-bottom: 1px solid var(--borde); }
-        .servicios-lista {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-top: 2rem;
+        .card-info h3 { color: var(--verde-principal); margin-bottom: 0.5rem; font-size: 1.2rem; }
+        .card-info p { color: var(--texto-secundario); font-size: 0.95rem; }
+        
+        .btn-ver-mas {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--teja-azuero);
+            font-weight: 700;
+            font-size: 0.85rem;
+            border-bottom: 2px solid transparent;
         }
-        .servicio-item { text-align: center; max-width: 180px; }
-        .servicio-icono { font-size: 2.5rem; color: var(--teja-azuero); margin-bottom: 1rem; }
+        .card-link:hover .btn-ver-mas { border-bottom-color: var(--teja-azuero); }
+
 
         /* --- CONTACTO --- */
         .contacto-grid {
@@ -248,7 +290,7 @@
         .contacto-btns { display: flex; flex-direction: column; gap: 1rem; justify-content: center; }
         .btn {
             display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-            padding: 12px; border-radius: 8px; color: white; font-weight: bold; text-decoration: none; transition: 0.3s;
+            padding: 12px; border-radius: 8px; color: white; font-weight: bold; transition: 0.3s;
         }
         .btn-wa { background-color: var(--whatsapp); }
         .btn-mail { background-color: var(--email); }
@@ -278,24 +320,31 @@
 </head>
 <body>
 
-    <header>
+<header>
         <nav>
             <div class="logo">
-                <h1><i class="fa-solid fa-leaf"></i> Finca Pamel</h1>
+                <a href="{% url 'index' %}"><h1><i class="fa-solid fa-leaf"></i> Finca Pamel</h1></a>
             </div>
             
             <ul class="nav-links">
-                <li><a href="#inicio" data-lang="menu_home">Inicio</a></li>
-                <li><a href="#habitaciones" data-lang="menu_rooms">Instalaciones</a></li>
-                <li><a href="#servicios" data-lang="menu_services">Servicios</a></li>
-                <li><a href="#contacto" data-lang="menu_contact">Contacto</a></li>
+                <li><a href="{% url 'index' %}" data-lang="menu_home">Inicio</a></li>
+                <li><a href="{% url 'hospedaje' %}" data-lang="menu_lodging">Hospedaje</a></li>
+                <li><a href="{% url 'pasadias' %}" data-lang="menu_daypass">Pasadías</a></li>
+                <li><a href="{% url 'eventos' %}" data-lang="menu_events">Eventos</a></li>
+                <li><a href="{% url 'blog' %}" data-lang="menu_blog">Blog</a></li>
+                <li><a href="{% url 'index' %}#contacto" data-lang="menu_contact">Contacto</a></li>
                 
                 <div class="controls">
-                    <button class="lang-btn" onclick="setLanguage('es')">ES</button>
-                    <button class="lang-btn" onclick="setLanguage('en')">EN</button>
-                    <button class="lang-btn" onclick="setLanguage('fr')">FR</button>
-                    <button class="lang-btn" onclick="setLanguage('de')">DE</button>
-                    <div class="theme-toggle" onclick="toggleTheme()">
+                    <div class="lang-wrapper">
+                        <i class="fa-solid fa-globe"></i>
+                        <select class="lang-select" onchange="setLanguage(this.value)">
+                            <option value="es">Español</option>
+                            <option value="en">English</option>
+                            <option value="fr">Français</option>
+                            <option value="de">Deutsch</option>
+                        </select>
+                    </div>
+                    <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar Tema">
                         <i id="theme-icon" class="fa-solid fa-moon"></i>
                     </div>
                 </div>
@@ -304,7 +353,7 @@
     </header>
 
     <section id="inicio" class="hero-container">
-        <img src="fincapamel1.jpg" alt="Finca Pamel Paisaje" class="hero-img">
+        <img src="{% static 'fincapamel1.jpg' %}" alt="Finca Pamel Paisaje" class="hero-img">
         <div class="hero-overlay">
             <h2 data-lang="hero_title">Experiencia Única en Azuero</h2>
             <p data-lang="hero_subtitle">Historia, Naturaleza y Tradición</p>
@@ -318,75 +367,45 @@
         </div>
 
         <div class="carousel-container">
-            <div class="carousel-slide"><img src="fincapamel5.jpg" alt="Foto 5"></div>
-            <div class="carousel-slide"><img src="fincapamel6.jpg" alt="Foto 6"></div>
-            <div class="carousel-slide"><img src="fincapamel7.jpg" alt="Foto 7"></div>
-            <div class="carousel-slide"><img src="fincapamel8.jpg" alt="Foto 8"></div>
-            <div class="carousel-slide"><img src="fincapamel9.jpg" alt="Foto 9"></div>
-            <div class="carousel-slide"><img src="fincapamel10.jpg" alt="Foto 10"></div>
+            <div class="carousel-slide"><img src="{% static 'fincapamel5.jpg' %}" alt="Foto 5"></div>
+            <div class="carousel-slide"><img src="{% static 'fincapamel6.jpg' %}" alt="Foto 6"></div>
+            <div class="carousel-slide"><img src="{% static 'fincapamel8.jpg' %}" alt="Foto 8"></div>
+            <div class="carousel-slide"><img src="{% static 'fincapamel9.jpg' %}" alt="Foto 9"></div>
         </div>
     </section>
 
-    <section id="habitaciones" class="container">
-        <h2 style="text-align: center; margin-bottom: 1rem;" data-lang="facilities_title">Nuestras Instalaciones</h2>
-        <p style="text-align: center; color: var(--texto-secundario);" data-lang="facilities_subtitle">Comodidad rústica en medio de la naturaleza</p>
+    <section id="servicios" class="container">
+        <h2 style="text-align: center; margin-bottom: 1rem;" data-lang="services_title">Nuestros Servicios</h2>
+        <p style="text-align: center; color: var(--texto-secundario);" data-lang="services_subtitle">Descubre todo lo que ofrecemos</p>
         
-        <div class="grid-cards">
-            <div class="card-item">
-                <img src="fincapamel3.jpg" alt="Hospedaje Familiar">
+<div class="grid-cards">
+            <a href="{% url 'hospedaje' %}" class="card-link">
+                <img src="{% static 'fincapamel3.jpg' %}" alt="Hospedaje Familiar">
                 <div class="card-info">
-                    <h3 data-lang="room_1_title">Hospedaje Familiar</h3>
-                    <p data-lang="room_1_desc">Habitaciones con aire acondicionado y baño privado.</p>
+                    <h3 data-lang="serv_lodging">Hospedaje Familiar</h3>
+                    <p data-lang="serv_lodging_desc">Habitaciones con aire acondicionado y baño privado.</p>
+                    <span class="btn-ver-mas" data-lang="btn_more">Ver Detalles →</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="card-item">
-                <img src="fincapamel2.jpg" alt="Piscina">
+            <a href="{% url 'pasadias' %}" class="card-link">
+                <img src="{% static 'fincapamel2.jpg' %}" alt="Piscina">
                 <div class="card-info">
-                    <h3 data-lang="room_2_title">Área de Piscina</h3>
-                    <p data-lang="room_2_desc">Perfecta para refrescarse en los días soleados de Azuero.</p>
+                    <h3 data-lang="serv_daypass">Pasadías y Piscina</h3>
+                    <p data-lang="serv_daypass_desc">Disfruta de nuestras instalaciones por un día.</p>
+                    <span class="btn-ver-mas" data-lang="btn_more">Ver Detalles →</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="card-item">
-                <img src="fincapamel4.jpg" alt="Ranchos de Descanso">
+            <a href="{% url 'eventos' %}" class="card-link">
+                <img src="{% static 'fincapamel4.jpg' %}" alt="Eventos">
                 <div class="card-info">
-                    <h3 data-lang="room_3_title">Ranchos de Descanso</h3>
-                    <p data-lang="room_3_desc">Hamacas y brisa para un descanso reparador.</p>
+                    <h3 data-lang="serv_events">Eventos y Ranchos</h3>
+                    <p data-lang="serv_events_desc">Hamacas, brisa y espacios para reuniones.</p>
+                    <span class="btn-ver-mas" data-lang="btn_more">Ver Detalles →</span>
                 </div>
-            </div>
+            </a>
         </div>
-    </section>
-
-    <section id="servicios" class="servicios-section">
-        <div class="container">
-            <h2 style="text-align: center;" data-lang="services_title">Servicios y Actividades</h2>
-            
-            <div class="servicios-lista">
-                <div class="servicio-item">
-                    <div class="servicio-icono"><i class="fa-solid fa-camera-retro"></i></div>
-                    <h3 data-lang="serv_photo">Fotos Típicas</h3>
-                    <p data-lang="serv_photo_desc">Sesiones con polleras y vestuario folklórico.</p>
-                </div>
-
-                <div class="servicio-item">
-                    <div class="servicio-icono"><i class="fa-solid fa-utensils"></i></div>
-                    <h3 data-lang="serv_food">Gastronomía</h3>
-                    <p data-lang="serv_food_desc">Sabores auténticos del campo (bajo reserva).</p>
-                </div>
-
-                <div class="servicio-item">
-                    <div class="servicio-icono"><i class="fa-solid fa-paw"></i></div>
-                    <h3 data-lang="serv_farm">Granja</h3>
-                    <p data-lang="serv_farm_desc">Interacción con animales y naturaleza.</p>
-                </div>
-
-                <div class="servicio-item">
-                    <div class="servicio-icono"><i class="fa-solid fa-wifi"></i></div>
-                    <h3 data-lang="serv_wifi">Conexión</h3>
-                    <p data-lang="serv_wifi_desc">Wifi en áreas sociales.</p>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -432,66 +451,57 @@
         </div>
 
         <div class="grid-cards">
-            <div class="card-item">
-                <img src="casanuboso.jpg" alt="Casa Nuboso Boquete">
+            <a href="#" class="card-link">
+                <img src="{% static 'casanuboso.jpg' %}" alt="Casa Nuboso Boquete">
                 <div class="card-info">
                     <h3>Casa Nuboso Estate</h3>
                     <p data-lang="nuboso_desc">Un escape en las tierras altas de Boquete. Clima perfecto, café y montañas.</p>
-                    <br>
-                    <a href="#" class="btn btn-mail" style="background-color: #2c3e50; padding: 8px 15px; font-size: 0.8rem;">Ver Más</a>
+                    <span class="btn-ver-mas" data-lang="btn_visit">Visitar Web →</span>
                 </div>
-            </div>
+            </a>
 
-            <div class="card-item">
-                <img src="casapollera.jpg" alt="Casa de la Pollera">
+            <a href="#" class="card-link">
+                <img src="{% static 'casapollera.jpg' %}" alt="Casa de la Pollera">
                 <div class="card-info">
                     <h3 data-lang="pollera_title">Estudio Folklórico</h3>
                     <p data-lang="pollera_desc">El lugar especializado para tus sesiones de fotos con Polleras en Los Santos.</p>
-                    <br>
-                    <a href="#" class="btn btn-mail" style="background-color: #d35400; padding: 8px 15px; font-size: 0.8rem;">Ver Más</a>
+                    <span class="btn-ver-mas" data-lang="btn_visit">Visitar Web →</span>
                 </div>
-            </div>
+            </a>
         </div>
     </section>
 
-    <footer style="background: #222; color: #aaa; text-align: center; padding: 2rem;">
+    <footer style="background: #111; color: #aaa; text-align: center; padding: 2rem;">
         <p>© 2026 Finca Pamel. Creado por <strong>AmatDev</strong>.</p>
     </footer>
 
     <script>
-        // --- 1. LÓGICA DE IDIOMAS (ES, EN, FR, DE) ---
+        // --- IDIOMAS ---
         const translations = {
             es: {
                 menu_home: "Inicio",
-                menu_rooms: "Instalaciones",
                 menu_services: "Servicios",
+                menu_blog: "Blog",
                 menu_contact: "Contacto",
                 hero_title: "Experiencia Única en Azuero",
                 hero_subtitle: "Historia, Naturaleza y Tradición",
                 welcome_title: "Bienvenidos a la Finca Pamel",
                 welcome_text: "Finca Agro Turística Pamel es un refugio de paz en La Villa de Los Santos. Con más de 2,200 años de historia arqueológica bajo nuestros pies, ofrecemos un espacio para desconectarse de la ciudad y conectar con nuestras raíces.",
-                facilities_title: "Nuestras Instalaciones",
-                facilities_subtitle: "Comodidad rústica en medio de la naturaleza",
-                room_1_title: "Hospedaje Familiar",
-                room_1_desc: "Habitaciones con aire acondicionado y baño privado.",
-                room_2_title: "Área de Piscina",
-                room_2_desc: "Perfecta para refrescarse en los días soleados de Azuero.",
-                room_3_title: "Ranchos de Descanso",
-                room_3_desc: "Hamacas y brisa para un descanso reparador.",
+                services_title: "Nuestros Servicios",
+                services_subtitle: "Descubre todo lo que ofrecemos",
+                serv_lodging: "Hospedaje Familiar",
+                serv_lodging_desc: "Habitaciones con aire acondicionado y baño privado.",
+                serv_daypass: "Pasadías y Piscina",
+                serv_daypass_desc: "Disfruta de nuestras instalaciones por un día.",
+                serv_events: "Eventos y Ranchos",
+                serv_events_desc: "Hamacas, brisa y espacios para reuniones.",
+                btn_more: "Ver Detalles →",
                 partners_title: "Otras Experiencias de la Familia",
                 partners_subtitle: "Descubre nuestros otros destinos en Panamá",
                 nuboso_desc: "Un escape en las tierras altas de Boquete. Clima perfecto, café y montañas.",
                 pollera_title: "Estudio Folklórico",
                 pollera_desc: "El lugar especializado para tus sesiones de fotos con Polleras en Los Santos.",
-                services_title: "Servicios y Actividades",
-                serv_photo: "Fotos Típicas",
-                serv_photo_desc: "Sesiones con polleras y vestuario folklórico.",
-                serv_food: "Gastronomía",
-                serv_food_desc: "Sabores auténticos del campo (bajo reserva).",
-                serv_farm: "Granja",
-                serv_farm_desc: "Interacción con animales y naturaleza.",
-                serv_wifi: "Conexión",
-                serv_wifi_desc: "Wifi en áreas sociales.",
+                btn_visit: "Visitar Web →",
                 contact_title: "¿Dónde Estamos?",
                 booking_title: "Reserva tu visita",
                 booking_text: "Atendemos consultas y reservas directamente:",
@@ -499,35 +509,28 @@
             },
             en: {
                 menu_home: "Home",
-                menu_rooms: "Facilities",
                 menu_services: "Services",
+                menu_blog: "Blog",
                 menu_contact: "Contact",
                 hero_title: "Unique Experience in Azuero",
                 hero_subtitle: "History, Nature and Tradition",
                 welcome_title: "Welcome to Finca Pamel",
                 welcome_text: "Finca Agro Turística Pamel is a peaceful refuge in La Villa de Los Santos. With over 2,200 years of archaeological history beneath our feet, we offer a space to disconnect from the city and connect with our roots.",
-                facilities_title: "Our Facilities",
-                facilities_subtitle: "Rustic comfort in the middle of nature",
-                room_1_title: "Family Lodging",
-                room_1_desc: "Rooms with air conditioning and private bathroom.",
-                room_2_title: "Pool Area",
-                room_2_desc: "Perfect for cooling off on sunny days in Azuero.",
-                room_3_title: "Resting Huts",
-                room_3_desc: "Hammocks and breeze for a restful break.",
+                services_title: "Our Services",
+                services_subtitle: "Discover everything we offer",
+                serv_lodging: "Family Lodging",
+                serv_lodging_desc: "Rooms with air conditioning and private bathroom.",
+                serv_daypass: "Day Pass & Pool",
+                serv_daypass_desc: "Enjoy our facilities for a day.",
+                serv_events: "Events & Huts",
+                serv_events_desc: "Hammocks, breeze, and spaces for gatherings.",
+                btn_more: "View Details →",
                 partners_title: "Our Sister Experiences",
                 partners_subtitle: "Discover our other destinations in Panama",
                 nuboso_desc: "An escape in the highlands of Boquete. Perfect weather, coffee, and mountains.",
                 pollera_title: "Folklore Studio",
                 pollera_desc: "The specialized place for your Pollera photo sessions in Los Santos.",
-                services_title: "Services & Activities",
-                serv_photo: "Typical Photos",
-                serv_photo_desc: "Sessions with polleras and folkloric costumes.",
-                serv_food: "Gastronomy",
-                serv_food_desc: "Authentic countryside flavors (by reservation).",
-                serv_farm: "Farm",
-                serv_farm_desc: "Interaction with animals and nature.",
-                serv_wifi: "Wi-Fi",
-                serv_wifi_desc: "Wi-Fi in social areas.",
+                btn_visit: "Visit Website →",
                 contact_title: "Where Are We?",
                 booking_title: "Book Your Visit",
                 booking_text: "We attend inquiries and reservations directly:",
@@ -535,35 +538,28 @@
             },
             fr: {
                 menu_home: "Accueil",
-                menu_rooms: "Installations",
                 menu_services: "Services",
+                menu_blog: "Blog",
                 menu_contact: "Contact",
                 hero_title: "Expérience Unique à Azuero",
                 hero_subtitle: "Histoire, Nature et Tradition",
                 welcome_title: "Bienvenue à Finca Pamel",
                 welcome_text: "Finca Agro Turística Pamel est un refuge paisible à La Villa de Los Santos. Avec plus de 2 200 ans d'histoire archéologique sous nos pieds, nous offrons un espace pour se déconnecter de la ville et se connecter à nos racines.",
-                facilities_title: "Nos Installations",
-                facilities_subtitle: "Confort rustique au cœur de la nature",
-                room_1_title: "Hébergement Familial",
-                room_1_desc: "Chambres avec climatisation et salle de bain privée.",
-                room_2_title: "Espace Piscine",
-                room_2_desc: "Parfait pour se rafraîchir lors des journées ensoleillées d'Azuero.",
-                room_3_title: "Huttes de Repos",
-                room_3_desc: "Hamacs et brise pour un repos réparateur.",
+                services_title: "Nos Services",
+                services_subtitle: "Découvrez tout ce que nous offrons",
+                serv_lodging: "Hébergement Familial",
+                serv_lodging_desc: "Chambres avec climatisation et salle de bain privée.",
+                serv_daypass: "Pass Journée & Piscine",
+                serv_daypass_desc: "Profitez de nos installations pour une journée.",
+                serv_events: "Événements & Huttes",
+                serv_events_desc: "Hamacs, brise et espaces pour réunions.",
+                btn_more: "Voir Détails →",
                 partners_title: "Nos Autres Expériences",
                 partners_subtitle: "Découvrez nos autres destinations au Panama",
                 nuboso_desc: "Une évasion sur les hautes terres de Boquete. Climat parfait, café et montagnes.",
                 pollera_title: "Studio Folklorique",
                 pollera_desc: "L'endroit spécialisé pour vos séances photo avec Polleras à Los Santos.",
-                services_title: "Services et Activités",
-                serv_photo: "Photos Typiques",
-                serv_photo_desc: "Séances avec polleras et costumes folkloriques.",
-                serv_food: "Gastronomie",
-                serv_food_desc: "Saveurs authentiques de la campagne (sur réservation).",
-                serv_farm: "Ferme",
-                serv_farm_desc: "Interaction avec les animaux et la nature.",
-                serv_wifi: "Connexion",
-                serv_wifi_desc: "Wifi dans les zones communes.",
+                btn_visit: "Visiter le Site →",
                 contact_title: "Où Sommes-Nous ?",
                 booking_title: "Réservez Votre Visite",
                 booking_text: "Nous traitons les demandes et les réservations directement :",
@@ -571,35 +567,28 @@
             },
             de: {
                 menu_home: "Start",
-                menu_rooms: "Einrichtungen",
                 menu_services: "Dienstleistungen",
+                menu_blog: "Blog",
                 menu_contact: "Kontakt",
                 hero_title: "Einzigartiges Erlebnis in Azuero",
                 hero_subtitle: "Geschichte, Natur und Tradition",
                 welcome_title: "Willkommen auf der Finca Pamel",
                 welcome_text: "Finca Agro Turística Pamel ist ein friedlicher Zufluchtsort in La Villa de Los Santos. Mit über 2.200 Jahren archäologischer Geschichte unter unseren Füßen bieten wir einen Raum, um von der Stadt abzuschalten und uns mit unseren Wurzeln zu verbinden.",
-                facilities_title: "Unsere Einrichtungen",
-                facilities_subtitle: "Rustikaler Komfort inmitten der Natur",
-                room_1_title: "Familienunterkunft",
-                room_1_desc: "Zimmer mit Klimaanlage und eigenem Bad.",
-                room_2_title: "Poolbereich",
-                room_2_desc: "Perfekt zur Abkühlung an sonnigen Tagen in Azuero.",
-                room_3_title: "Ruhehütten",
-                room_3_desc: "Hängematten und Brise für eine erholsame Pause.",
+                services_title: "Unsere Dienstleistungen",
+                services_subtitle: "Entdecken Sie alles, was wir anbieten",
+                serv_lodging: "Familienunterkunft",
+                serv_lodging_desc: "Zimmer mit Klimaanlage und eigenem Bad.",
+                serv_daypass: "Tagespass & Pool",
+                serv_daypass_desc: "Genießen Sie unsere Einrichtungen für einen Tag.",
+                serv_events: "Veranstaltungen & Hütten",
+                serv_events_desc: "Hängematten, Brise und Räume für Versammlungen.",
+                btn_more: "Details anzeigen →",
                 partners_title: "Weitere Erlebnisse der Familie",
                 partners_subtitle: "Entdecken Sie unsere anderen Ziele in Panama",
                 nuboso_desc: "Eine Flucht in das Hochland von Boquete. Perfektes Wetter, Kaffee und Berge.",
                 pollera_title: "Folklore-Studio",
                 pollera_desc: "Der spezialisierte Ort für Ihre Pollera-Fotoshootings in Los Santos.",
-                services_title: "Dienstleistungen & Aktivitäten",
-                serv_photo: "Typische Fotos",
-                serv_photo_desc: "Sitzungen mit Polleras und folkloristischen Kostümen.",
-                serv_food: "Gastronomie",
-                serv_food_desc: "Authentische ländliche Aromen (auf Reservierung).",
-                serv_farm: "Bauernhof",
-                serv_farm_desc: "Interaktion mit Tieren und Natur.",
-                serv_wifi: "Verbindung",
-                serv_wifi_desc: "WLAN in Gemeinschaftsbereichen.",
+                btn_visit: "Webseite besuchen →",
                 contact_title: "Wo sind wir?",
                 booking_title: "Buchen Sie Ihren Besuch",
                 booking_text: "Wir bearbeiten Anfragen und Reservierungen direkt:",
@@ -617,26 +606,38 @@
             });
         }
 
-        // --- 2. LÓGICA DE MODO OSCURO ---
-        function toggleTheme() {
+        // --- DARK MODE: AUTOMÁTICO + MANUAL ---
+        function applyTheme(isDark) {
             const body = document.body;
             const icon = document.getElementById('theme-icon');
             
-            body.classList.toggle('dark-mode');
-            
-            if (body.classList.contains('dark-mode')) {
+            if (isDark) {
+                body.classList.add('dark-mode');
+                // Icono cambia a Sol (para que sepas que al tocar vuelves a modo claro)
                 icon.classList.remove('fa-moon');
                 icon.classList.add('fa-sun');
             } else {
+                body.classList.remove('dark-mode');
+                // Icono cambia a Luna (para que sepas que al tocar vas a modo oscuro)
                 icon.classList.remove('fa-sun');
                 icon.classList.add('fa-moon');
             }
         }
 
-        // Detección automática del sistema al cargar
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            toggleTheme(); 
+        function toggleTheme() {
+            // Revisa cómo está ahora e invierte
+            const isDarkNow = document.body.classList.contains('dark-mode');
+            applyTheme(!isDarkNow);
         }
+
+        // 1. Detectar preferencia al cargar
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        applyTheme(systemPrefersDark.matches);
+
+        // 2. Escuchar cambios del sistema en vivo
+        systemPrefersDark.addEventListener('change', (e) => {
+            applyTheme(e.matches);
+        });
     </script>
 
 </body>

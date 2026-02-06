@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Noticia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --verde: #2E5C38; --bg: #F9F9F9; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--bg); padding: 2rem; }
+        .form-container { max-width: 600px; margin: 0 auto; background: white; padding: 3rem; border-radius: 15px; }
+        h2 { text-align: center; color: var(--verde); }
+        .form-control { width: 100%; padding: 10px; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        .btn-save { width: 100%; background: #3498DB; color: white; padding: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .btn-back { display: block; text-align: center; margin-top: 1rem; text-decoration: none; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>✏️ Editando: {{ post.titulo }}</h2>
+        
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>Título:</label>
+            {{ form.titulo }}
+            <br><br>
+            <label>Imagen Actual:</label>
+            {{ form.imagen }}
+            <br><br>
+            <label>Contenido:</label>
+            {{ form.contenido }}
+            <br><br>
+            <button type="submit" class="btn-save">Guardar Cambios</button>
+        </form>
+        
+        <a href="{% url 'lista_posts' %}" class="btn-back">Cancelar</a>
+    </div>
+</body>
+</html>

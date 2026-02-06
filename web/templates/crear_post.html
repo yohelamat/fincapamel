@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Noticia | Finca Pamel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --verde: #2E5C38; --bg: #F9F9F9; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--bg); padding: 2rem; color: #333; }
+        
+        .form-container {
+            max-width: 600px; margin: 0 auto; background: white; padding: 3rem;
+            border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        h2 { text-align: center; color: var(--verde); margin-bottom: 2rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; font-weight: bold; margin-bottom: 0.5rem; color: var(--verde); }
+        
+        /* Estilo de los inputs que vienen de Django */
+        input[type="text"], textarea {
+            width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 8px;
+            font-size: 1rem; font-family: inherit; box-sizing: border-box;
+        }
+        input:focus, textarea:focus { outline: none; border-color: var(--verde); }
+        
+        /* Botón de acción principal */
+        .btn-save {
+            width: 100%; background: var(--verde); color: white; padding: 15px;
+            border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold;
+            cursor: pointer; transition: 0.3s; margin-top: 1rem;
+        }
+        .btn-save:hover { background: #1e3f26; }
+        
+        .btn-cancel { display: block; text-align: center; margin-top: 1.5rem; text-decoration: none; color: #666; }
+        .btn-cancel:hover { color: red; }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>
+            {% if es_edicion %}
+                ✏️ Editando Noticia
+            {% else %}
+                📝 Nueva Noticia
+            {% endif %}
+        </h2>
+        
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label>Título:</label>
+                {{ form.titulo }}
+            </div>
+
+            <div class="form-group">
+                <label>Imagen Principal:</label>
+                {{ form.imagen }}
+            </div>
+
+            <div class="form-group">
+                <label>Contenido:</label>
+                {{ form.contenido }}
+            </div>
+
+            <button type="submit" class="btn-save">
+                {% if es_edicion %}Guardar Cambios{% else %}Publicar Ahora{% endif %}
+            </button>
+        </form>
+
+        {% if es_edicion %}
+            <a href="{% url 'lista_posts' %}" class="btn-cancel">Cancelar Edición</a>
+        {% else %}
+            <a href="{% url 'panel' %}" class="btn-cancel">Cancelar</a>
+        {% endif %}
+    </div>
+
+</body>
+</html>

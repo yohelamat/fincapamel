@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Manejar Posts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background: #F9F9F9; padding: 2rem; max-width: 900px; margin: 0 auto; }
+        h2 { color: #2E5C38; text-align: center; }
+        .post-item { background: white; padding: 1.5rem; margin-bottom: 1rem; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .post-info h3 { margin: 0 0 0.5rem 0; font-size: 1.2rem; }
+        .post-date { color: #888; font-size: 0.9rem; }
+        .actions { display: flex; gap: 10px; }
+        .btn { padding: 8px 15px; border-radius: 5px; text-decoration: none; color: white; font-weight: bold; font-size: 0.9rem; }
+        .btn-edit { background: #3498DB; }
+        .btn-delete { background: #E74C3C; }
+        .btn-back { display: block; text-align: center; margin-top: 2rem; text-decoration: none; color: #555; }
+    </style>
+</head>
+<body>
+
+    <h2>Manejar tus Publicaciones</h2>
+
+    {% for post in posts %}
+        <div class="post-item">
+            <div class="post-info">
+                <h3>{{ post.titulo }}</h3>
+                <span class="post-date">{{ post.fecha_publicacion }}</span>
+            </div>
+            <div class="actions">
+                <a href="{% url 'editar_post' post.id %}" class="btn btn-edit"><i class="fa-solid fa-pencil"></i> Editar</a>
+                <a href="{% url 'borrar_post' post.id %}" class="btn btn-delete" onclick="return confirm('¿Seguro que quieres borrar esto?')"><i class="fa-solid fa-trash"></i> Borrar</a>
+                
+            </div>
+        </div>
+    {% empty %}
+        <p style="text-align:center;">No hay posts todavía.</p>
+    {% endfor %}
+
+    <a href="{% url 'panel' %}" class="btn-back">← Volver al Panel</a>
+
+</body>
+</html>

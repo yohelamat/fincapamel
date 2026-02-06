@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --verde: #2E5C38; --teja: #D35400; --bg: #F9F9F9; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        h1 { color: var(--verde); margin-bottom: 2rem; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 800px; width: 90%; }
+        .menu-card {
+            background: white; padding: 3rem; border-radius: 20px; text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-decoration: none; color: #333;
+            transition: transform 0.3s; border: 2px solid transparent;
+        }
+        .menu-card:hover { transform: translateY(-10px); border-color: var(--verde); }
+        .icon-box { font-size: 4rem; color: var(--verde); margin-bottom: 1rem; }
+        h3 { font-size: 1.5rem; margin: 0; }
+        .logout-btn { margin-top: 3rem; color: #888; text-decoration: none; border-bottom: 1px solid transparent; }
+        .logout-btn:hover { color: red; border-color: red; }
+    </style>
+</head>
+<body>
+
+    <h1>Hola, {{ user.username }} 👋</h1>
+
+    <div class="menu-grid">
+        <a href="{% url 'crear_post' %}" class="menu-card">
+            <div class="icon-box"><i class="fa-solid fa-pen-to-square"></i></div>
+            <h3>Añadir Nuevo Post</h3>
+        </a>
+
+        <a href="{% url 'lista_posts' %}" class="menu-card">
+            <div class="icon-box"><i class="fa-solid fa-list-check"></i></div>
+            <h3>Manejar Posts</h3>
+        </a>
+    </div>
+
+    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" style="background:none; border:none; cursor:pointer;" class="logout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+        </button>
+    </form>
+
+</body>
+</html>

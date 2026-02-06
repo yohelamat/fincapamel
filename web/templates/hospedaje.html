@@ -1,0 +1,195 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospedaje | Finca Pamel</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- ESTILOS COMPARTIDOS (Mismos que los otros html) --- */
+        :root {
+            --verde-principal: #2E5C38; --teja-azuero: #D35400; --whatsapp: #25D366; --email: #3498DB;
+            --bg-body: #F9F9F9; --bg-card: #ffffff; --bg-header: #ffffff;
+            --texto-principal: #333333; --texto-secundario: #555555;
+            --sombra: rgba(0,0,0,0.05); --borde: #eeeeee;
+        }
+        body.dark-mode {
+            --bg-body: #121212; --bg-card: #1e1e1e; --bg-header: #1a1a1a;
+            --texto-principal: #f0f0f0; --texto-secundario: #cccccc;
+            --sombra: rgba(0,0,0,0.3); --borde: #333333;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; color: var(--texto-principal); background: var(--bg-body); line-height: 1.6; transition: 0.3s; }
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; }
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; color: var(--verde-principal); font-weight: 700; }
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color: #4CAF50; }
+
+        header { background: var(--bg-header); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px var(--sombra); padding: 0 5%; transition: background 0.3s; }
+        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; min-height: 70px; }
+        .logo h1 { font-size: 1.5rem; display: flex; align-items: center; gap: 8px; }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--texto-secundario); font-weight: 600; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s; }
+        .nav-links a:hover { color: var(--verde-principal); }
+
+        .controls { display: flex; align-items: center; margin-left: 20px; padding-left: 20px; border-left: 1px solid var(--borde); gap: 15px; }
+        .lang-select { appearance: none; background: var(--bg-header); border: 1px solid var(--borde); color: var(--texto-principal); padding: 5px 10px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-weight: bold; }
+        .theme-toggle { cursor: pointer; color: var(--texto-principal); font-size: 1.2rem; }
+
+        .page-header { height: 350px; position: relative; overflow: hidden; }
+        .page-header img { width: 100%; height: 100%; object-fit: cover; }
+        .page-title { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; }
+        .page-title h2 { color: white !important; font-size: 3rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+
+        .detail-container { max-width: 900px; margin: 4rem auto; padding: 0 1.5rem; }
+        .features-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; }
+        .features-list li { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--texto-secundario); }
+        .features-list i { color: var(--teja-azuero); }
+
+        .mini-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 3rem; }
+        .mini-gallery img { border-radius: 12px; height: 200px; width: 100%; object-fit: cover; transition: 0.3s; }
+        .mini-gallery img:hover { transform: scale(1.05); }
+
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 1rem; }
+            .nav-links { display: flex; flex-direction: column; text-align: center; width: 100%; padding-top: 1rem; }
+            .controls { margin: 0; padding: 0; border: none; }
+            .page-header { height: 250px; }
+        }
+        footer { background: #111; color: #aaa; text-align: center; padding: 2rem; margin-top: 4rem; }
+    </style>
+</head>
+<body>
+
+<header>
+        <nav>
+            <div class="logo">
+                <a href="{% url 'index' %}"><h1><i class="fa-solid fa-leaf"></i> Finca Pamel</h1></a>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="{% url 'index' %}" data-lang="menu_home">Inicio</a></li>
+                <li><a href="{% url 'hospedaje' %}" data-lang="menu_lodging">Hospedaje</a></li>
+                <li><a href="{% url 'pasadias' %}" data-lang="menu_daypass">Pasadías</a></li>
+                <li><a href="{% url 'eventos' %}" data-lang="menu_events">Eventos</a></li>
+                <li><a href="{% url 'blog' %}" data-lang="menu_blog">Blog</a></li>
+                <li><a href="{% url 'index' %}#contacto" data-lang="menu_contact">Contacto</a></li>
+                
+                <div class="controls">
+                    <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar Tema">
+                        <i id="theme-icon" class="fa-solid fa-moon"></i>
+                    </div>
+                </div>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <img src="{% static 'fincapamel3.jpg' %}" alt="Hospedaje Finca Pamel">
+        <div class="page-title">
+            <h2 data-lang="page_title">Hospedaje Familiar</h2>
+        </div>
+    </section>
+
+    <section class="detail-container">
+        <div class="detail-content">
+            <h3 style="margin-bottom: 1rem;" data-lang="content_title">Descanso en la Naturaleza</h3>
+            <p data-lang="content_desc_1">Nuestras habitaciones están diseñadas para brindar el máximo confort manteniendo el estilo rústico de la región. Despierta con el canto de las aves y disfruta de la brisa fresca de Azuero.</p>
+            <br>
+            <p data-lang="content_desc_2">Ideal para parejas que buscan una escapada romántica o familias que desean desconectarse de la ciudad.</p>
+
+            <ul class="features-list">
+                <li><i class="fa-solid fa-wind"></i> <span data-lang="feat_ac">Aire Acondicionado</span></li>
+                <li><i class="fa-solid fa-wifi"></i> <span data-lang="feat_wifi">Wifi</span></li>
+                <li><i class="fa-solid fa-bath"></i> <span data-lang="feat_bath">Baño Privado</span></li>
+                <li><i class="fa-solid fa-tv"></i> <span data-lang="feat_tv">TV por Cable</span></li>
+                <li><i class="fa-solid fa-mug-hot"></i> <span data-lang="feat_breakfast">Desayuno Típico</span></li>
+                <li><i class="fa-solid fa-square-parking"></i> <span data-lang="feat_parking">Estacionamiento</span></li>
+            </ul>
+        </div>
+
+        <h3 style="margin-top: 3rem;" data-lang="gallery_title">Galería de Habitaciones</h3>
+        <div class="mini-gallery">
+           <img src="{% static 'fincapamel5.jpg' %}" alt="Habitación">
+            <img src="{% static 'fincapamel6.jpg' %}" alt="Interiores">
+            <img src="{% static 'fincapamel7.jpg' %}" alt="Baño">
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="https://wa.me/50769915111" class="btn" style="background: var(--whatsapp); color: white; padding: 15px 30px; border-radius: 50px; font-weight: bold; display: inline-flex; align-items: center; gap: 10px;">
+                <i class="fa-brands fa-whatsapp"></i> <span data-lang="btn_quote">Cotizar Estadía</span>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Finca Pamel. Creado por <strong>AmatDev</strong>.</p>
+    </footer>
+
+    <script>
+        const translations = {
+            es: {
+                menu_home: "Inicio", menu_lodging: "Hospedaje", menu_daypass: "Pasadías", menu_events: "Eventos", menu_blog: "Blog",
+                page_title: "Hospedaje Familiar",
+                content_title: "Descanso en la Naturaleza",
+                content_desc_1: "Nuestras habitaciones están diseñadas para brindar el máximo confort manteniendo el estilo rústico de la región.",
+                content_desc_2: "Ideal para parejas que buscan una escapada romántica o familias que desean desconectarse de la ciudad.",
+                feat_ac: "Aire Acondicionado", feat_wifi: "Wifi", feat_bath: "Baño Privado",
+                feat_tv: "TV por Cable", feat_breakfast: "Desayuno Típico", feat_parking: "Estacionamiento",
+                gallery_title: "Galería de Habitaciones", btn_quote: "Cotizar Estadía"
+            },
+            en: {
+                menu_home: "Home", menu_lodging: "Lodging", menu_daypass: "Day Pass", menu_events: "Events", menu_blog: "Blog",
+                page_title: "Family Lodging",
+                content_title: "Rest in Nature",
+                content_desc_1: "Our rooms are designed to provide maximum comfort while maintaining the rustic style of the region.",
+                content_desc_2: "Ideal for couples looking for a romantic getaway or families wishing to disconnect from the city.",
+                feat_ac: "Air Conditioning", feat_wifi: "Wi-Fi", feat_bath: "Private Bathroom",
+                feat_tv: "Cable TV", feat_breakfast: "Typical Breakfast", feat_parking: "Parking",
+                gallery_title: "Room Gallery", btn_quote: "Get a Quote"
+            },
+            fr: {
+                menu_home: "Accueil", menu_lodging: "Hébergement", menu_daypass: "Pass Journée", menu_events: "Événements", menu_blog: "Blog",
+                page_title: "Hébergement Familial",
+                content_title: "Repos dans la Nature",
+                content_desc_1: "Nos chambres sont conçues pour offrir un confort maximal tout en conservant le style rustique de la région.",
+                content_desc_2: "Idéal pour les couples en quête d'une escapade romantique ou les familles souhaitant se déconnecter.",
+                feat_ac: "Climatisation", feat_wifi: "Wifi", feat_bath: "Bain Privé",
+                feat_tv: "Télévision", feat_breakfast: "Petit Déjeuner", feat_parking: "Parking",
+                gallery_title: "Galerie des Chambres", btn_quote: "Demander un Devis"
+            },
+            de: {
+                menu_home: "Start", menu_lodging: "Unterkunft", menu_daypass: "Tagespass", menu_events: "Veranstaltungen", menu_blog: "Blog",
+                page_title: "Familienunterkunft",
+                content_title: "Erholung in der Natur",
+                content_desc_1: "Unsere Zimmer sind so gestaltet, dass sie maximalen Komfort bieten und gleichzeitig den rustikalen Stil bewahren.",
+                content_desc_2: "Ideal für Paare, die einen romantischen Ausflug suchen, oder Familien, die abschalten möchten.",
+                feat_ac: "Klimaanlage", feat_wifi: "WLAN", feat_bath: "Privates Bad",
+                feat_tv: "Kabelfernsehen", feat_breakfast: "Typisches Frühstück", feat_parking: "Parkplatz",
+                gallery_title: "Zimmergalerie", btn_quote: "Angebot anfordern"
+            }
+        };
+
+        function setLanguage(lang) {
+            const elements = document.querySelectorAll('[data-lang]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang][key]) element.textContent = translations[lang][key];
+            });
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); }
+            else { icon.classList.remove('fa-sun'); icon.classList.add('fa-moon'); }
+        }
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) toggleTheme();
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+# Archivos de sistema y Python
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+
+# Base de datos (No la subas, en el server se crea una nueva o se sube manual)
+db.sqlite3
+
+# Carpetas de medios y estáticos (Se manejan en el server)
+media/
+staticfiles/
+
+# Entorno Virtual (¡Nunca subir esto!)
+venv/
+env/
+.env
+
+# Editor
+.vscode/

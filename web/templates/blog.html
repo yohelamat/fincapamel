@@ -1,0 +1,301 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Finca Pamel</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- ESTILOS BASE --- */
+        :root {
+            --verde-principal: #2E5C38; --teja-azuero: #D35400;    
+            --bg-body: #F9F9F9; --bg-card: #ffffff; --bg-header: #ffffff;
+            --texto-principal: #333333; --texto-secundario: #555555;
+            --sombra: rgba(0,0,0,0.05); --borde: #eeeeee;
+        }
+        body.dark-mode {
+            --bg-body: #121212; --bg-card: #1e1e1e; --bg-header: #1a1a1a;
+            --texto-principal: #f0f0f0; --texto-secundario: #cccccc;
+            --sombra: rgba(0,0,0,0.3); --borde: #333333;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; color: var(--texto-principal); background: var(--bg-body); line-height: 1.6; transition: 0.3s; }
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; }
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; color: var(--verde-principal); font-weight: 700; }
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color: #4CAF50; }
+
+        header { background: var(--bg-header); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px var(--sombra); padding: 0 5%; }
+        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; min-height: 70px; }
+        .logo h1 { font-size: 1.5rem; display: flex; align-items: center; gap: 8px; }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--texto-secundario); font-weight: 600; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s; }
+        .nav-links a:hover { color: var(--verde-principal); }
+        .controls { display: flex; align-items: center; margin-left: 20px; padding-left: 20px; border-left: 1px solid var(--borde); gap: 15px; }
+        .theme-toggle { cursor: pointer; color: var(--texto-principal); font-size: 1.2rem; }
+
+        /* --- ESTILOS DEL BLOG (CORREGIDOS) --- */
+        .blog-container { max-width: 1100px; margin: 4rem auto; padding: 0 1.5rem; }
+        
+        /* USAMOS FLEXBOX PARA QUE SE VEA BIEN CON 1 O 100 TARJETAS */
+        .blog-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Centra las tarjetas si hay pocas */
+            gap: 30px;
+        }
+
+        .blog-post {
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px var(--sombra);
+            border: 1px solid var(--borde);
+            transition: transform 0.3s;
+            
+            /* TAMAÑO CONTROLADO */
+            flex: 1 1 300px; /* Crece si hace falta, base 300px */
+            max-width: 380px; /* NUNCA será más ancha que esto (evita el efecto banner) */
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .blog-post:hover { transform: translateY(-5px); }
+
+        .blog-img { 
+            width: 100%; 
+            height: 220px; 
+            object-fit: cover; 
+            object-position: center;
+        }
+        
+        .blog-content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+        
+        .blog-date { 
+            font-size: 0.8rem; 
+            color: var(--teja-azuero); 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            margin-bottom: 0.5rem; 
+        }
+        
+        .blog-content h3 { font-size: 1.3rem; margin-bottom: 0.8rem; line-height: 1.3; }
+        .blog-content p { color: var(--texto-secundario); font-size: 0.95rem; margin-bottom: 1.5rem; flex-grow: 1; }
+        
+        .read-more { 
+            color: var(--verde-principal); 
+            font-weight: 700; 
+            cursor: pointer;
+            display: inline-block;
+            margin-top: auto; /* Empuja el botón al final */
+        }
+        .read-more:hover { text-decoration: underline; }
+
+        /* --- ESTILOS DEL MODAL (POP-UP) --- */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed; 
+            z-index: 2000; 
+            left: 0; top: 0; 
+            width: 100%; height: 100%; 
+            background-color: rgba(0,0,0,0.8); /* Fondo oscuro transparente */
+            overflow: auto;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--bg-card);
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 700px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown { from {transform: translateY(-50px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
+
+        .close-btn {
+            position: absolute;
+            top: 15px; right: 20px;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        .close-btn:hover { color: var(--teja-azuero); }
+
+        .modal-img-container { width: 100%; height: 350px; overflow: hidden; border-radius: 12px 12px 0 0; position: relative; }
+        .modal-img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .modal-body { padding: 2rem; color: var(--texto-principal); }
+        .modal-date { color: var(--teja-azuero); font-weight: bold; font-size: 0.9rem; display: block; margin-bottom: 0.5rem; }
+        .modal-title { font-size: 2rem; margin-bottom: 1.5rem; line-height: 1.2; }
+        .modal-text { font-size: 1.1rem; line-height: 1.8; color: var(--texto-secundario); white-space: pre-wrap; }
+
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 1rem; }
+            .nav-links { display: flex; flex-direction: column; text-align: center; width: 100%; padding-top: 1rem; }
+            .controls { margin: 0; padding: 0; border: none; }
+            .modal-img-container { height: 250px; }
+            .modal-title { font-size: 1.5rem; }
+        }
+        
+        footer { background: #111; color: #aaa; text-align: center; padding: 2rem; margin-top: 4rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="{% url 'index' %}"><h1><i class="fa-solid fa-leaf"></i> Finca Pamel</h1></a>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="{% url 'index' %}" data-lang="menu_home">Inicio</a></li>
+                <li><a href="{% url 'hospedaje' %}" data-lang="menu_lodging">Hospedaje</a></li>
+                <li><a href="{% url 'pasadias' %}" data-lang="menu_daypass">Pasadías</a></li>
+                <li><a href="{% url 'eventos' %}" data-lang="menu_events">Eventos</a></li>
+                <li><a href="{% url 'blog' %}" style="color:var(--verde-principal);">Blog</a></li>
+                <li><a href="{% url 'index' %}#contacto" data-lang="menu_contact">Contacto</a></li>
+                
+                <div class="controls">
+                    <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar Tema">
+                        <i id="theme-icon" class="fa-solid fa-moon"></i>
+                    </div>
+                </div>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="blog-container">
+        <h2 style="text-align: center; margin-bottom: 1rem; font-size: 2.5rem;">Noticias del Campo</h2>
+        <p style="text-align: center; color: var(--texto-secundario); margin-bottom: 3rem;">Historias, eventos y novedades de Finca Pamel</p>
+
+        <div class="blog-grid">
+            
+            {% for post in posts %}
+            <article class="blog-post">
+                {% if post.imagen %}
+                    <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" class="blog-img">
+                {% endif %}
+                
+                <div class="blog-content">
+                    <span class="blog-date">{{ post.fecha_publicacion|date:"d M Y" }}</span>
+                    <h3>{{ post.titulo }}</h3>
+                    <p>{{ post.contenido|truncatewords:20 }}</p>
+                    
+                    <span class="read-more" 
+                          onclick="openModal(this)"
+                          data-title="{{ post.titulo }}"
+                          data-date="{{ post.fecha_publicacion|date:'d M Y' }}"
+                          data-content="{{ post.contenido }}"
+                          {% if post.imagen %}data-image="{{ post.imagen.url }}"{% endif %}>
+                        Leer más →
+                    </span>
+                </div>
+            </article>
+            {% empty %}
+                <div style="text-align:center; width:100%; padding: 2rem;">
+                    <i class="fa-regular fa-newspaper" style="font-size: 3rem; color: #ccc;"></i>
+                    <p style="margin-top:1rem; color: #888;">Aún no hay noticias publicadas.</p>
+                </div>
+            {% endfor %}
+
+        </div>
+    </section>
+
+    <div id="postModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            
+            <div class="modal-img-container">
+                <img id="modalImg" src="" class="modal-img" alt="Imagen Noticia">
+            </div>
+            
+            <div class="modal-body">
+                <span id="modalDate" class="modal-date"></span>
+                <h2 id="modalTitle" class="modal-title"></h2>
+                <div id="modalText" class="modal-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Finca Pamel. Creado por <strong>AmatDev</strong>.</p>
+    </footer>
+
+    <script>
+        // --- 1. LÓGICA DEL MODAL ---
+        function openModal(element) {
+            // Recuperamos los datos guardados en el botón
+            const title = element.getAttribute('data-title');
+            const date = element.getAttribute('data-date');
+            const content = element.getAttribute('data-content');
+            const image = element.getAttribute('data-image');
+
+            // Llenamos el modal con esa info
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDate').innerText = date;
+            
+            // Convertimos saltos de línea simples en HTML (<br>) para que se vea bien
+            document.getElementById('modalText').innerText = content; 
+
+            const imgElement = document.getElementById('modalImg');
+            if (image) {
+                imgElement.src = image;
+                imgElement.style.display = 'block';
+            } else {
+                imgElement.style.display = 'none';
+            }
+
+            // Mostramos el modal
+            document.getElementById('postModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Evita scroll de fondo
+        }
+
+        function closeModal() {
+            document.getElementById('postModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Reactiva scroll
+        }
+
+        // Cerrar si clic fuera del contenido
+        window.onclick = function(event) {
+            const modal = document.getElementById('postModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // --- 2. DARK MODE ---
+        function applyTheme(isDark) {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            if (isDark) {
+                body.classList.add('dark-mode');
+                icon.classList.remove('fa-moon'); icon.classList.add('fa-sun');
+            } else {
+                body.classList.remove('dark-mode');
+                icon.classList.remove('fa-sun'); icon.classList.add('fa-moon');
+            }
+        }
+        function toggleTheme() {
+            const isDarkNow = document.body.classList.contains('dark-mode');
+            applyTheme(!isDarkNow);
+        }
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        applyTheme(systemPrefersDark.matches);
+        systemPrefersDark.addEventListener('change', (e) => { applyTheme(e.matches); });
+    </script>
+
+</body>
+</html>
