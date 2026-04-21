@@ -60,7 +60,7 @@
         }
         
         body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 {
-            color: #4CAF50; /* Verde más brillante para fondo negro */
+            color: #4CAF50;
         }
 
         /* --- HEADER --- */
@@ -104,10 +104,9 @@
             margin-left: 20px;
             padding-left: 20px;
             border-left: 1px solid var(--borde);
-            gap: 15px; /* Espacio entre selector e icono */
+            gap: 15px;
         }
 
-        /* Selector de Idioma */
         .lang-wrapper {
             position: relative;
             display: flex;
@@ -138,7 +137,6 @@
             color: var(--texto-principal);
         }
 
-        /* Botón de Tema (Luna/Sol) */
         .theme-toggle {
             cursor: pointer;
             color: var(--texto-principal);
@@ -204,7 +202,7 @@
         .intro-text { text-align: center; max-width: 800px; margin: 0 auto; }
         .intro-text p { font-size: 1.1rem; color: var(--texto-secundario); }
 
-/* --- CARRUSEL AJUSTADO PARA 4 FOTOS --- */
+        /* --- CARRUSEL AJUSTADO PARA 4 FOTOS --- */
         .carousel-container {
             position: relative;
             width: 100%;
@@ -216,7 +214,6 @@
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             opacity: 0;
-            /* Ciclo total de 20 segundos (5s x 4 fotos) */
             animation: fade 20s infinite; 
             display: flex; align-items: center; justify-content: center;
         }
@@ -227,26 +224,24 @@
             box-shadow: 0 5px 15px var(--sombra);
         }
         
-        /* TIEMPOS DE ENTRADA (Cada 5 segundos entra una nueva) */
         .carousel-slide:nth-child(1) { animation-delay: 0s; }
         .carousel-slide:nth-child(2) { animation-delay: 5s; }
         .carousel-slide:nth-child(3) { animation-delay: 10s; }
         .carousel-slide:nth-child(4) { animation-delay: 15s; }
         
-        /* ANIMACIÓN CALCULADA PARA 4 ELEMENTOS (100% / 4 = 25%) */
         @keyframes fade {
             0% { opacity: 0; }
-            5% { opacity: 1; }  /* Aparece rápido */
-            20% { opacity: 1; } /* Se queda visible */
-            25% { opacity: 0; } /* Desaparece justo cuando entra la siguiente */
+            5% { opacity: 1; }
+            20% { opacity: 1; }
+            25% { opacity: 0; }
             100% { opacity: 0; }
         }
 
         /* --- GRID --- */
         .grid-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
             margin-top: 2rem;
         }
         
@@ -278,7 +273,6 @@
             border-bottom: 2px solid transparent;
         }
         .card-link:hover .btn-ver-mas { border-bottom-color: var(--teja-azuero); }
-
 
         /* --- CONTACTO --- */
         .contacto-grid {
@@ -332,7 +326,7 @@
                 <li><a href="{% url 'pasadias' %}" data-lang="menu_daypass">Pasadías</a></li>
                 <li><a href="{% url 'eventos' %}" data-lang="menu_events">Eventos</a></li>
                 <li><a href="{% url 'blog' %}" data-lang="menu_blog">Blog</a></li>
-                <li><a href="{% url 'index' %}#contacto" data-lang="menu_contact">Contacto</a></li>
+                <li><a href="#contacto" data-lang="menu_contact">Contacto</a></li>
                 
                 <div class="controls">
                     <div class="lang-wrapper">
@@ -353,7 +347,7 @@
     </header>
 
     <section id="inicio" class="hero-container">
-        <img src="{% static 'fincapamel1.jpg' %}" alt="Finca Pamel Paisaje" class="hero-img">
+        <img src="{% static 'titulo1.jpeg' %}" alt="Finca Pamel Paisaje" class="hero-img">
         <div class="hero-overlay">
             <h2 data-lang="hero_title">Experiencia Única en Azuero</h2>
             <p data-lang="hero_subtitle">Historia, Naturaleza y Tradición</p>
@@ -367,10 +361,10 @@
         </div>
 
         <div class="carousel-container">
-            <div class="carousel-slide"><img src="{% static 'fincapamel5.jpg' %}" alt="Foto 5"></div>
-            <div class="carousel-slide"><img src="{% static 'fincapamel6.jpg' %}" alt="Foto 6"></div>
-            <div class="carousel-slide"><img src="{% static 'fincapamel8.jpg' %}" alt="Foto 8"></div>
-            <div class="carousel-slide"><img src="{% static 'fincapamel9.jpg' %}" alt="Foto 9"></div>
+            <div class="carousel-slide"><img src="{% static 'h3.jpeg' %}" alt="Foto Finca 1"></div>
+            <div class="carousel-slide"><img src="{% static 'p2.jpeg' %}" alt="Foto Finca 2"></div>
+            <div class="carousel-slide"><img src="{% static 'p3.jpg' %}" alt="Foto Finca 3"></div>
+            <div class="carousel-slide"><img src="{% static 'h4.jpeg' %}" alt="Foto Finca 4"></div>
         </div>
     </section>
 
@@ -378,9 +372,9 @@
         <h2 style="text-align: center; margin-bottom: 1rem;" data-lang="services_title">Nuestros Servicios</h2>
         <p style="text-align: center; color: var(--texto-secundario);" data-lang="services_subtitle">Descubre todo lo que ofrecemos</p>
         
-<div class="grid-cards">
+        <div class="grid-cards">
             <a href="{% url 'hospedaje' %}" class="card-link">
-                <img src="{% static 'fincapamel3.jpg' %}" alt="Hospedaje Familiar">
+                <img src="{% static 'h1.jpeg' %}" alt="Hospedaje Familiar">
                 <div class="card-info">
                     <h3 data-lang="serv_lodging">Hospedaje Familiar</h3>
                     <p data-lang="serv_lodging_desc">Habitaciones con aire acondicionado y baño privado.</p>
@@ -389,7 +383,7 @@
             </a>
 
             <a href="{% url 'pasadias' %}" class="card-link">
-                <img src="{% static 'fincapamel2.jpg' %}" alt="Piscina">
+                <img src="{% static 'p1.jpg' %}" alt="Piscina">
                 <div class="card-info">
                     <h3 data-lang="serv_daypass">Pasadías y Piscina</h3>
                     <p data-lang="serv_daypass_desc">Disfruta de nuestras instalaciones por un día.</p>
@@ -398,14 +392,22 @@
             </a>
 
             <a href="{% url 'eventos' %}" class="card-link">
-                <img src="{% static 'fincapamel4.jpg' %}" alt="Eventos">
+                <img src="{% static 'evento1.jpeg' %}" alt="Eventos">
                 <div class="card-info">
                     <h3 data-lang="serv_events">Eventos y Ranchos</h3>
                     <p data-lang="serv_events_desc">Hamacas, brisa y espacios para reuniones.</p>
                     <span class="btn-ver-mas" data-lang="btn_more">Ver Detalles →</span>
                 </div>
             </a>
-        </div>
+
+            <a href="#" class="card-link"> 
+                <img src="{% static 'tour1.jpeg' %}" alt="Tours Guiados">
+                <div class="card-info">
+                    <h3 data-lang="serv_tours">Tours Guiados</h3>
+                    <p data-lang="serv_tours_desc">Explora la naturaleza y la historia arqueológica.</p>
+                    <span class="btn-ver-mas" data-lang="btn_more">Ver Detalles →</span>
+                </div>
+            </a>
         </div>
     </section>
 
@@ -452,7 +454,7 @@
 
         <div class="grid-cards">
             <a href="#" class="card-link">
-                <img src="{% static 'casanuboso.jpg' %}" alt="Casa Nuboso Boquete">
+                <img src="{% static 'nuboso1.JPG' %}" alt="Casa Nuboso Boquete">
                 <div class="card-info">
                     <h3>Casa Nuboso Estate</h3>
                     <p data-lang="nuboso_desc">Un escape en las tierras altas de Boquete. Clima perfecto, café y montañas.</p>
@@ -461,10 +463,19 @@
             </a>
 
             <a href="#" class="card-link">
-                <img src="{% static 'casapollera.jpg' %}" alt="Casa de la Pollera">
+                <img src="{% static 'studio1.jpg' %}" alt="Estudio Folklórico">
                 <div class="card-info">
                     <h3 data-lang="pollera_title">Estudio Folklórico</h3>
                     <p data-lang="pollera_desc">El lugar especializado para tus sesiones de fotos con Polleras en Los Santos.</p>
+                    <span class="btn-ver-mas" data-lang="btn_visit">Visitar Web →</span>
+                </div>
+            </a>
+
+            <a href="#" class="card-link">
+                <img src="{% static 'arosemana1.png' %}" alt="Casa Arosemena Córdoba">
+                <div class="card-info">
+                    <h3 data-lang="arosemena_title">Casa Arosemena Córdoba</h3>
+                    <p data-lang="arosemena_desc">Una joya histórica colonial en el corazón de La Villa de Los Santos.</p>
                     <span class="btn-ver-mas" data-lang="btn_visit">Visitar Web →</span>
                 </div>
             </a>
@@ -495,12 +506,16 @@
                 serv_daypass_desc: "Disfruta de nuestras instalaciones por un día.",
                 serv_events: "Eventos y Ranchos",
                 serv_events_desc: "Hamacas, brisa y espacios para reuniones.",
+                serv_tours: "Tours Guiados",
+                serv_tours_desc: "Explora la naturaleza y la historia arqueológica.",
                 btn_more: "Ver Detalles →",
                 partners_title: "Otras Experiencias de la Familia",
                 partners_subtitle: "Descubre nuestros otros destinos en Panamá",
                 nuboso_desc: "Un escape en las tierras altas de Boquete. Clima perfecto, café y montañas.",
                 pollera_title: "Estudio Folklórico",
                 pollera_desc: "El lugar especializado para tus sesiones de fotos con Polleras en Los Santos.",
+                arosemena_title: "Casa Arosemena Córdoba",
+                arosemena_desc: "Una joya histórica colonial en el corazón de La Villa de Los Santos.",
                 btn_visit: "Visitar Web →",
                 contact_title: "¿Dónde Estamos?",
                 booking_title: "Reserva tu visita",
@@ -524,12 +539,16 @@
                 serv_daypass_desc: "Enjoy our facilities for a day.",
                 serv_events: "Events & Huts",
                 serv_events_desc: "Hammocks, breeze, and spaces for gatherings.",
+                serv_tours: "Guided Tours",
+                serv_tours_desc: "Explore nature and archaeological history.",
                 btn_more: "View Details →",
                 partners_title: "Our Sister Experiences",
                 partners_subtitle: "Discover our other destinations in Panama",
                 nuboso_desc: "An escape in the highlands of Boquete. Perfect weather, coffee, and mountains.",
                 pollera_title: "Folklore Studio",
                 pollera_desc: "The specialized place for your Pollera photo sessions in Los Santos.",
+                arosemena_title: "Casa Arosemena Córdoba",
+                arosemena_desc: "A historical colonial jewel in the heart of La Villa de Los Santos.",
                 btn_visit: "Visit Website →",
                 contact_title: "Where Are We?",
                 booking_title: "Book Your Visit",
@@ -553,12 +572,16 @@
                 serv_daypass_desc: "Profitez de nos installations pour une journée.",
                 serv_events: "Événements & Huttes",
                 serv_events_desc: "Hamacs, brise et espaces pour réunions.",
+                serv_tours: "Visites Guidées",
+                serv_tours_desc: "Explorez la nature et l'histoire archéologique.",
                 btn_more: "Voir Détails →",
                 partners_title: "Nos Autres Expériences",
                 partners_subtitle: "Découvrez nos autres destinations au Panama",
                 nuboso_desc: "Une évasion sur les hautes terres de Boquete. Climat parfait, café et montagnes.",
                 pollera_title: "Studio Folklorique",
                 pollera_desc: "L'endroit spécialisé pour vos séances photo avec Polleras à Los Santos.",
+                arosemena_title: "Casa Arosemena Córdoba",
+                arosemena_desc: "Un joyau colonial historique au cœur de La Villa de Los Santos.",
                 btn_visit: "Visiter le Site →",
                 contact_title: "Où Sommes-Nous ?",
                 booking_title: "Réservez Votre Visite",
@@ -582,12 +605,16 @@
                 serv_daypass_desc: "Genießen Sie unsere Einrichtungen für einen Tag.",
                 serv_events: "Veranstaltungen & Hütten",
                 serv_events_desc: "Hängematten, Brise und Räume für Versammlungen.",
+                serv_tours: "Geführte Touren",
+                serv_tours_desc: "Erkunden Sie die Natur und die archäologische Geschichte.",
                 btn_more: "Details anzeigen →",
                 partners_title: "Weitere Erlebnisse der Familie",
                 partners_subtitle: "Entdecken Sie unsere anderen Ziele in Panama",
                 nuboso_desc: "Eine Flucht in das Hochland von Boquete. Perfektes Wetter, Kaffee und Berge.",
                 pollera_title: "Folklore-Studio",
                 pollera_desc: "Der spezialisierte Ort für Ihre Pollera-Fotoshootings in Los Santos.",
+                arosemena_title: "Casa Arosemena Córdoba",
+                arosemena_desc: "Ein historisches koloniales Juwel im Herzen von La Villa de Los Santos.",
                 btn_visit: "Webseite besuchen →",
                 contact_title: "Wo sind wir?",
                 booking_title: "Buchen Sie Ihren Besuch",
@@ -613,28 +640,23 @@
             
             if (isDark) {
                 body.classList.add('dark-mode');
-                // Icono cambia a Sol (para que sepas que al tocar vuelves a modo claro)
                 icon.classList.remove('fa-moon');
                 icon.classList.add('fa-sun');
             } else {
                 body.classList.remove('dark-mode');
-                // Icono cambia a Luna (para que sepas que al tocar vas a modo oscuro)
                 icon.classList.remove('fa-sun');
                 icon.classList.add('fa-moon');
             }
         }
 
         function toggleTheme() {
-            // Revisa cómo está ahora e invierte
             const isDarkNow = document.body.classList.contains('dark-mode');
             applyTheme(!isDarkNow);
         }
 
-        // 1. Detectar preferencia al cargar
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
         applyTheme(systemPrefersDark.matches);
 
-        // 2. Escuchar cambios del sistema en vivo
         systemPrefersDark.addEventListener('change', (e) => {
             applyTheme(e.matches);
         });
