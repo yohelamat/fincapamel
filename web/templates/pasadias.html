@@ -107,29 +107,30 @@
                 <a href="{% url 'index' %}"><h1><i class="fa-solid fa-leaf"></i> Finca Pamel</h1></a>
             </div>
             
-            <ul class="nav-links">
-                <li><a href="{% url 'index' %}" data-lang="menu_home">Inicio</a></li>
-                <li><a href="{% url 'hospedaje' %}" data-lang="menu_lodging">Hospedaje</a></li>
-                <li><a href="{% url 'pasadias' %}" data-lang="menu_daypass">Pasadías</a></li>
-                <li><a href="{% url 'eventos' %}" data-lang="menu_events">Eventos</a></li>
-                <li><a href="{% url 'blog' %}" data-lang="menu_blog">Blog</a></li>
-                <li><a href="{% url 'index' %}#contacto" data-lang="menu_contact">Contacto</a></li>
-                
-                <div class="controls">
-                    <div class="lang-wrapper">
-                        <i class="fa-solid fa-globe"></i>
-                        <select class="lang-select" onchange="setLanguage(this.value)">
-                            <option value="es">Español</option>
-                            <option value="en">English</option>
-                            <option value="fr">Français</option>
-                            <option value="de">Deutsch</option>
-                        </select>
-                    </div>
-                    <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar Tema">
-                        <i id="theme-icon" class="fa-solid fa-moon"></i>
-                    </div>
-                </div>
-            </ul>
+<ul class="nav-links">
+    <li><a href="{% url 'index' %}" data-lang="menu_home">Inicio</a></li>
+    <li><a href="{% url 'hospedaje' %}" data-lang="menu_lodging">Hospedaje</a></li>
+    <li><a href="{% url 'pasadias' %}" data-lang="menu_daypass">Pasadías</a></li>
+    <li><a href="{% url 'eventos' %}" data-lang="menu_events">Eventos</a></li>
+    <li><a href="{% url 'tours' %}" data-lang="menu_tours">Tours</a></li>
+    <li><a href="{% url 'blog' %}" data-lang="menu_blog">Blog</a></li>
+    <li><a href="{% url 'index' %}#contacto" data-lang="menu_contact">Contacto</a></li>
+    
+    <div class="controls">
+        <div class="lang-wrapper">
+            <i class="fa-solid fa-globe"></i>
+            <select class="lang-select" onchange="setLanguage(this.value)">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+            </select>
+        </div>
+        <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar Tema">
+            <i id="theme-icon" class="fa-solid fa-moon"></i>
+        </div>
+    </div>
+</ul>
         </nav>
     </header>
 

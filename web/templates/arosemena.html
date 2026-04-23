@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa Arosemena Córdoba | La Villa de Los Santos</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- PALETA COLONIAL (Madera y Teja) --- */
+        :root {
+            --color-principal: #4E342E; /* Marrón madera oscura */
+            --color-acento: #D35400;    /* Teja/Naranja quemado */
+            --bg-body: #FDFBF7;         /* Color pergamino muy claro */
+            --bg-card: #ffffff;
+            --texto-principal: #3E2723;
+            --texto-secundario: #6D4C41;
+            --sombra: rgba(78, 52, 46, 0.1);
+            --whatsapp: #25D366;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; color: var(--texto-principal); background-color: var(--bg-body); line-height: 1.6; }
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; }
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; color: var(--color-principal); font-weight: 700; }
+
+        /* --- BARRA DE NAVEGACIÓN --- */
+        .top-bar {
+            background: #ffffff; width: 100%; padding: 15px 5%;
+            box-shadow: 0 2px 10px var(--sombra); position: sticky; top: 0; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .btn-volver { color: var(--texto-secundario); font-weight: 600; font-size: 0.9rem; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        .btn-volver:hover { color: var(--color-acento); transform: translateX(-5px); }
+        .brand-text { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--color-principal); font-size: 1.2rem; }
+
+        /* --- HERO AROSEMENA --- */
+        .hero { position: relative; width: 100%; height: 50vh; min-height: 400px; overflow: hidden; }
+        .hero img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(78, 52, 46, 0.7), rgba(0, 0, 0, 0.4)); 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1rem;
+        }
+        .hero-overlay h1 { color: white; font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero-overlay p { color: #fAEBDE; font-size: 1.2rem; font-weight: 400; letter-spacing: 1px; }
+
+        /* --- CONTENIDO --- */
+        .container { max-width: 900px; margin: 4rem auto; padding: 0 1.5rem; text-align: center; }
+        
+        .amenities-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin: 3rem 0; }
+        .amenity-item { display: flex; flex-direction: column; align-items: center; width: 140px; }
+        .amenity-item i { font-size: 2.5rem; color: var(--color-acento); margin-bottom: 10px; }
+
+        .btn-reserva {
+            display: inline-flex; align-items: center; gap: 10px; background: var(--whatsapp); color: white;
+            padding: 15px 35px; border-radius: 50px; font-weight: bold; font-size: 1.1rem;
+            transition: 0.3s; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+        .btn-reserva:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4); }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <a href="{% url 'index' %}" class="btn-volver">
+            <i class="fa-solid fa-arrow-left"></i> Volver a Finca Pamel
+        </a>
+        <div class="brand-text">Familia Pamel</div>
+    </div>
+
+    <section class="hero">
+        <img src="{% static 'arosemana1.png' %}" alt="Casa Arosemena Córdoba">
+        <div class="hero-overlay">
+            <h1>Casa Arosemena Córdoba</h1>
+            <p>Una joya histórica en el corazón de La Villa</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 style="margin-bottom: 1.5rem;">Viaja en el tiempo</h2>
+        <p style="color: var(--texto-secundario); font-size: 1.1rem; margin-bottom: 2rem;">
+            Hospédate en una auténtica casona colonial conservada con amor y respeto por sus raíces. Sus paredes de quincha, puertas de madera tallada y patio central te transportarán a otra época, sin renunciar al confort moderno que mereces en el corazón histórico de Los Santos.
+        </p>
+
+        <div class="amenities-grid">
+            <div class="amenity-item">
+                <i class="fa-solid fa-landmark"></i>
+                <strong>Arquitectura Colonial</strong>
+            </div>
+            <div class="amenity-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <strong>Ubicación Céntrica</strong>
+            </div>
+            <div class="amenity-item">
+                <i class="fa-solid fa-bed"></i>
+                <strong>Hospedaje Exclusivo</strong>
+            </div>
+            <div class="amenity-item">
+                <i class="fa-solid fa-chess-rook"></i>
+                <strong>Historia y Tradición</strong>
+            </div>
+        </div>
+
+        <div style="margin-top: 4rem;">
+            <a href="https://wa.me/50769915111" class="btn-reserva" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i> Reservar Estancia
+            </a>
+        </div>
+    </section>
+
+</body>
+</html>

@@ -23,6 +23,18 @@ def pasadias(request):
 def eventos(request):
     return render(request, 'eventos.html')
 
+def tours(request):
+    return render(request, 'tours.html')
+
+def nuboso(request):
+    return render(request, 'nuboso.html')
+
+def studio(request):
+    return render(request, 'studio.html')
+
+def arosemena(request):
+    return render(request, 'arosemena.html')
+
 @login_required(login_url='/admin/login/') # Si no está logueado, lo manda al login del admin
 def crear_post(request):
     if request.method == 'POST':

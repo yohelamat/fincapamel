@@ -1,0 +1,271 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tours Guiados | Finca Pamel</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --verde-principal: #2E5C38; --teja-azuero: #D35400; --whatsapp: #25D366; --email: #3498DB;
+            --bg-body: #F9F9F9; --bg-card: #ffffff; --bg-header: #ffffff;
+            --texto-principal: #333333; --texto-secundario: #555555;
+            --sombra: rgba(0,0,0,0.05); --borde: #eeeeee;
+        }
+        body.dark-mode {
+            --bg-body: #121212; --bg-card: #1e1e1e; --bg-header: #1a1a1a;
+            --texto-principal: #f0f0f0; --texto-secundario: #cccccc;
+            --sombra: rgba(0,0,0,0.3); --borde: #333333;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; color: var(--texto-principal); background: var(--bg-body); line-height: 1.6; transition: 0.3s; }
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; }
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; color: var(--verde-principal); font-weight: 700; }
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color: #4CAF50; }
+
+        header { background: var(--bg-header); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px var(--sombra); padding: 0 5%; transition: background 0.3s; }
+        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; min-height: 70px; }
+        .logo h1 { font-size: 1.5rem; display: flex; align-items: center; gap: 8px; }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+        .nav-links a { color: var(--texto-secundario); font-weight: 600; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s; }
+        .nav-links a:hover { color: var(--verde-principal); }
+
+        .controls { display: flex; align-items: center; margin-left: 20px; padding-left: 20px; border-left: 1px solid var(--borde); gap: 15px; }
+        .lang-select { appearance: none; background: var(--bg-header); border: 1px solid var(--borde); color: var(--texto-principal); padding: 5px 10px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-weight: bold; }
+        .theme-toggle { cursor: pointer; color: var(--texto-principal); font-size: 1.2rem; }
+
+        /* Estilos Página Interna */
+        .page-header { height: 350px; position: relative; overflow: hidden; }
+        .page-header img { width: 100%; height: 100%; object-fit: cover; }
+        .page-title { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; text-align: center; padding: 1rem;}
+        .page-title h2 { color: white !important; font-size: clamp(2rem, 5vw, 3.5rem); text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+
+        .detail-container { max-width: 900px; margin: 4rem auto; padding: 0 1.5rem; }
+        .intro-text { text-align: center; margin-bottom: 2rem; }
+
+        /* --- AMENIDADES --- */
+        .amenities-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+        }
+        .amenity-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 140px;
+            color: var(--texto-principal);
+        }
+        .amenity-item i {
+            font-size: 2.5rem;
+            color: var(--verde-principal);
+            margin-bottom: 10px;
+        }
+
+        /* --- GRID DE GALERÍA --- */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+            margin-top: 2rem;
+        }
+        .gallery-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px var(--sombra);
+            transition: transform 0.3s;
+        }
+        .gallery-img:hover {
+            transform: scale(1.03);
+        }
+
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 1rem; }
+            .nav-links { display: flex; flex-direction: column; text-align: center; width: 100%; padding-top: 1rem; }
+            .controls { margin: 0; padding: 0; border: none; }
+            .page-header { height: 250px; }
+        }
+        footer { background: #111; color: #aaa; text-align: center; padding: 2rem; margin-top: 4rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="{% url 'index' %}"><h1><i class="fa-solid fa-leaf"></i> Finca Pamel</h1></a>
+            </div>
+            
+<ul class="nav-links">
+    <li><a href="{% url 'index' %}" data-lang="menu_home">Inicio</a></li>
+    <li><a href="{% url 'hospedaje' %}" data-lang="menu_lodging">Hospedaje</a></li>
+    <li><a href="{% url 'pasadias' %}" data-lang="menu_daypass">Pasadías</a></li>
+    <li><a href="{% url 'eventos' %}" data-lang="menu_events">Eventos</a></li>
+    <li><a href="{% url 'tours' %}" data-lang="menu_tours">Tours</a></li>
+    <li><a href="{% url 'blog' %}" data-lang="menu_blog">Blog</a></li>
+    <li><a href="{% url 'index' %}#contacto" data-lang="menu_contact">Contacto</a></li>
+    
+    <div class="controls">
+        <div class="lang-wrapper">
+            <i class="fa-solid fa-globe"></i>
+            <select class="lang-select" onchange="setLanguage(this.value)">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+            </select>
+        </div>
+        <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar Tema">
+            <i id="theme-icon" class="fa-solid fa-moon"></i>
+        </div>
+    </div>
+</ul>
+        </nav>
+    </header>
+
+    <section class="page-header">
+        <img src="{% static 't3.jpeg' %}" alt="Tours Finca Pamel">
+        <div class="page-title">
+            <h2 data-lang="page_title">Tours Guiados</h2>
+        </div>
+    </section>
+
+    <section class="detail-container">
+        <div class="intro-text">
+            <h3 style="margin-bottom: 1rem; font-size: 1.8rem;" data-lang="content_title">Explora nuestra historia y naturaleza</h3>
+            <p data-lang="content_desc_1">Camina sobre más de 2,200 años de historia arqueológica en La Villa de Los Santos. Nuestros tours guiados están diseñados para sumergirte en la cultura, la ganadería local y la exuberante flora y fauna de la región.</p>
+            <br>
+            <p data-lang="content_desc_2">Una experiencia educativa e interactiva ideal para familias, escuelas y amantes de la naturaleza que desean conectar con las raíces panameñas.</p>
+        </div>
+
+        <div class="amenities-grid">
+            <div class="amenity-item">
+                <i class="fa-solid fa-person-hiking"></i>
+                <span data-lang="feat_hiking" style="font-weight: 600;">Caminatas</span>
+            </div>
+            <div class="amenity-item">
+                <i class="fa-solid fa-cow"></i>
+                <span data-lang="feat_animals" style="font-weight: 600;">Granja y Animales</span>
+            </div>
+            <div class="amenity-item">
+                <i class="fa-solid fa-map"></i>
+                <span data-lang="feat_guide" style="font-weight: 600;">Guía Experto</span>
+            </div>
+            <div class="amenity-item">
+                <i class="fa-solid fa-clock"></i>
+                <span data-lang="feat_duration" style="font-weight: 600;">Duración: 2 Horas</span>
+            </div>
+            <div class="amenity-item">
+                <i class="fa-solid fa-camera"></i>
+                <span data-lang="feat_photos" style="font-weight: 600;">Spots Fotográficos</span>
+            </div>
+        </div>
+
+        <h2 style="text-align: center; margin-top: 4rem; margin-bottom: 1rem;" data-lang="gallery_title">Galería de Exploración</h2>
+        
+        <div class="grid-cards">
+            <img src="{% static 't1.jpeg' %}" alt="Tour Finca Pamel" class="gallery-img">
+            <img src="{% static 't2.jpeg' %}" alt="Tour Finca Pamel" class="gallery-img">
+            <img src="{% static 't3.jpeg' %}" alt="Tour Finca Pamel" class="gallery-img">
+            <img src="{% static 't4.jpg' %}" alt="Tour Finca Pamel" class="gallery-img">
+            <img src="{% static 't5.avif' %}" alt="Tour Finca Pamel" class="gallery-img">
+            <img src="{% static 't6.jpeg' %}" alt="Tour Finca Pamel" class="gallery-img">
+            <img src="{% static 't7.jpeg' %}" alt="Tour Finca Pamel" class="gallery-img">
+            <img src="{% static 't8.jpeg' %}" alt="Tour Finca Pamel" class="gallery-img">
+            <img src="{% static 't9.png' %}" alt="Tour Finca Pamel" class="gallery-img">
+            <img src="{% static 't10.jpeg' %}" alt="Tour Finca Pamel" class="gallery-img">
+            <img src="{% static 't11.jpg' %}" alt="Tour Finca Pamel" class="gallery-img">
+            <img src="{% static 't12.jpg' %}" alt="Tour Finca Pamel" class="gallery-img">
+
+        </div>
+
+        <div style="text-align: center; margin-top: 4rem;">
+            <a href="https://wa.me/50769915111" class="btn" style="background: var(--whatsapp); color: white; padding: 15px 30px; border-radius: 50px; font-weight: bold; display: inline-flex; align-items: center; gap: 10px; font-size: 1.1rem; transition: 0.3s;" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i> <span data-lang="btn_book">Agendar un Tour</span>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Finca Pamel. Creado por <strong>AmatDev</strong>.</p>
+    </footer>
+
+    <script>
+        const translations = {
+            es: {
+                menu_home: "Inicio", menu_lodging: "Hospedaje", menu_daypass: "Pasadías", menu_events: "Eventos", menu_tours: "Tours", menu_blog: "Blog", menu_contact: "Contacto",
+                page_title: "Tours Guiados",
+                content_title: "Explora nuestra historia y naturaleza",
+                content_desc_1: "Camina sobre más de 2,200 años de historia arqueológica en La Villa de Los Santos. Nuestros tours guiados están diseñados para sumergirte en la cultura, la ganadería local y la exuberante flora y fauna de la región.",
+                content_desc_2: "Una experiencia educativa e interactiva ideal para familias, escuelas y amantes de la naturaleza que desean conectar con las raíces panameñas.",
+                feat_hiking: "Caminatas", feat_animals: "Granja y Animales", feat_guide: "Guía Experto",
+                feat_duration: "Duración: 2 Horas", feat_photos: "Spots Fotográficos",
+                gallery_title: "Galería de Exploración",
+                btn_book: "Agendar un Tour"
+            },
+            en: {
+                menu_home: "Home", menu_lodging: "Lodging", menu_daypass: "Day Pass", menu_events: "Events", menu_tours: "Tours", menu_blog: "Blog", menu_contact: "Contact",
+                page_title: "Guided Tours",
+                content_title: "Explore our history and nature",
+                content_desc_1: "Walk on over 2,200 years of archaeological history in La Villa de Los Santos. Our guided tours are designed to immerse you in the culture, local farming, and the lush flora and fauna of the region.",
+                content_desc_2: "An educational and interactive experience ideal for families, schools, and nature lovers looking to connect with Panamanian roots.",
+                feat_hiking: "Hiking", feat_animals: "Farm & Animals", feat_guide: "Expert Guide",
+                feat_duration: "Duration: 2 Hours", feat_photos: "Photo Spots",
+                gallery_title: "Exploration Gallery",
+                btn_book: "Schedule a Tour"
+            },
+            fr: {
+                menu_home: "Accueil", menu_lodging: "Hébergement", menu_daypass: "Pass Journée", menu_events: "Événements", menu_tours: "Tours", menu_blog: "Blog", menu_contact: "Contact",
+                page_title: "Visites Guidées",
+                content_title: "Explorez notre histoire et notre nature",
+                content_desc_1: "Marchez sur plus de 2 200 ans d'histoire archéologique à La Villa de Los Santos. Nos visites guidées sont conçues pour vous plonger dans la culture, l'élevage local et la flore luxuriante de la région.",
+                content_desc_2: "Une expérience éducative et interactive idéale pour les familles, les écoles et les amoureux de la nature.",
+                feat_hiking: "Randonnées", feat_animals: "Ferme et Animaux", feat_guide: "Guide Expert",
+                feat_duration: "Durée : 2 Heures", feat_photos: "Lieux Photographiques",
+                gallery_title: "Galerie d'Exploration",
+                btn_book: "Programmer une Visite"
+            },
+            de: {
+                menu_home: "Start", menu_lodging: "Unterkunft", menu_daypass: "Tagespass", menu_events: "Veranstaltungen", menu_tours: "Touren", menu_blog: "Blog", menu_contact: "Kontakt",
+                page_title: "Geführte Touren",
+                content_title: "Erkunden Sie unsere Geschichte und Natur",
+                content_desc_1: "Spazieren Sie über 2.200 Jahre archäologische Geschichte in La Villa de Los Santos. Unsere geführten Touren lassen Sie in die Kultur, die lokale Landwirtschaft und die üppige Flora und Fauna der Region eintauchen.",
+                content_desc_2: "Ein lehrreiches und interaktives Erlebnis, ideal für Familien, Schulen und Naturliebhaber.",
+                feat_hiking: "Wandern", feat_animals: "Bauernhof & Tiere", feat_guide: "Expertenführer",
+                feat_duration: "Dauer: 2 Stunden", feat_photos: "Foto-Spots",
+                gallery_title: "Erkundungsgalerie",
+                btn_book: "Tour buchen"
+            }
+        };
+
+        function setLanguage(lang) {
+            const elements = document.querySelectorAll('[data-lang]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang][key]) element.textContent = translations[lang][key];
+            });
+        }
+
+        // Dark Mode Logic
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); }
+            else { icon.classList.remove('fa-sun'); icon.classList.add('fa-moon'); }
+        }
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) toggleTheme();
+    </script>
+</body>
+</html>

@@ -15,12 +15,18 @@ urlpatterns = [
     path('hospedaje/', views.hospedaje, name='hospedaje'),
     path('pasadias/', views.pasadias, name='pasadias'),
     path('eventos/', views.eventos, name='eventos'),
+    path('tours/', views.tours, name='tours'),
 
     # --- RUTAS PRIVADAS (Panel de Control) ---
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     # Nota: Logout ahora requiere POST, pero por simplicidad usaremos esta vista configurada
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
     path('panel/', views.panel, name='panel'),
+    
+    # --- MICROSITIOS (Nuevas) ---
+    path('nuboso/', views.nuboso, name='nuboso'),
+    path('studio/', views.studio, name='studio'),
+    path('arosemena/', views.arosemena, name='arosemena'),
     
     # Gestión de Posts
     path('panel/nuevo/', views.crear_post, name='crear_post'),

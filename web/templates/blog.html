@@ -36,16 +36,19 @@
         .nav-links a { color: var(--texto-secundario); font-weight: 600; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s; }
         .nav-links a:hover { color: var(--verde-principal); }
         .controls { display: flex; align-items: center; margin-left: 20px; padding-left: 20px; border-left: 1px solid var(--borde); gap: 15px; }
+        
+        /* RESTAURADO: Estilos del selector de idioma */
+        .lang-wrapper { display: flex; align-items: center; gap: 5px; color: var(--texto-secundario); }
+        .lang-select { appearance: none; background: var(--bg-header); border: 1px solid var(--borde); color: var(--texto-principal); padding: 5px 10px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-weight: bold; }
         .theme-toggle { cursor: pointer; color: var(--texto-principal); font-size: 1.2rem; }
 
-        /* --- ESTILOS DEL BLOG (CORREGIDOS) --- */
-        .blog-container { max-width: 1100px; margin: 4rem auto; padding: 0 1.5rem; }
+        /* --- ESTILOS DEL BLOG --- */
+        .blog-container { max-width: 1100px; margin: 4rem auto; padding: 0 1.5rem; min-height: 60vh; }
         
-        /* USAMOS FLEXBOX PARA QUE SE VEA BIEN CON 1 O 100 TARJETAS */
         .blog-grid {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center; /* Centra las tarjetas si hay pocas */
+            justify-content: center;
             gap: 30px;
         }
 
@@ -56,10 +59,8 @@
             box-shadow: 0 5px 20px var(--sombra);
             border: 1px solid var(--borde);
             transition: transform 0.3s;
-            
-            /* TAMAÑO CONTROLADO */
-            flex: 1 1 300px; /* Crece si hace falta, base 300px */
-            max-width: 380px; /* NUNCA será más ancha que esto (evita el efecto banner) */
+            flex: 1 1 300px;
+            max-width: 380px;
             display: flex;
             flex-direction: column;
         }
@@ -91,18 +92,18 @@
             font-weight: 700; 
             cursor: pointer;
             display: inline-block;
-            margin-top: auto; /* Empuja el botón al final */
+            margin-top: auto;
         }
         .read-more:hover { text-decoration: underline; }
 
         /* --- ESTILOS DEL MODAL (POP-UP) --- */
         .modal {
-            display: none; /* Oculto por defecto */
+            display: none;
             position: fixed; 
             z-index: 2000; 
             left: 0; top: 0; 
             width: 100%; height: 100%; 
-            background-color: rgba(0,0,0,0.8); /* Fondo oscuro transparente */
+            background-color: rgba(0,0,0,0.8);
             overflow: auto;
             backdrop-filter: blur(5px);
         }
@@ -165,10 +166,20 @@
                 <li><a href="{% url 'hospedaje' %}" data-lang="menu_lodging">Hospedaje</a></li>
                 <li><a href="{% url 'pasadias' %}" data-lang="menu_daypass">Pasadías</a></li>
                 <li><a href="{% url 'eventos' %}" data-lang="menu_events">Eventos</a></li>
-                <li><a href="{% url 'blog' %}" style="color:var(--verde-principal);">Blog</a></li>
+                <li><a href="{% url 'tours' %}" data-lang="menu_tours">Tours</a></li>
+                <li><a href="{% url 'blog' %}" data-lang="menu_blog">Blog</a></li>
                 <li><a href="{% url 'index' %}#contacto" data-lang="menu_contact">Contacto</a></li>
                 
                 <div class="controls">
+                    <div class="lang-wrapper">
+                        <i class="fa-solid fa-globe"></i>
+                        <select class="lang-select" onchange="setLanguage(this.value)">
+                            <option value="es">Español</option>
+                            <option value="en">English</option>
+                            <option value="fr">Français</option>
+                            <option value="de">Deutsch</option>
+                        </select>
+                    </div>
                     <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar Tema">
                         <i id="theme-icon" class="fa-solid fa-moon"></i>
                     </div>
@@ -178,8 +189,8 @@
     </header>
 
     <section class="blog-container">
-        <h2 style="text-align: center; margin-bottom: 1rem; font-size: 2.5rem;">Noticias del Campo</h2>
-        <p style="text-align: center; color: var(--texto-secundario); margin-bottom: 3rem;">Historias, eventos y novedades de Finca Pamel</p>
+        <h2 style="text-align: center; margin-bottom: 1rem; font-size: 2.5rem;" data-lang="page_title">Noticias del Campo</h2>
+        <p style="text-align: center; color: var(--texto-secundario); margin-bottom: 3rem;" data-lang="page_subtitle">Historias, eventos y novedades de Finca Pamel</p>
 
         <div class="blog-grid">
             
@@ -207,7 +218,7 @@
             {% empty %}
                 <div style="text-align:center; width:100%; padding: 2rem;">
                     <i class="fa-regular fa-newspaper" style="font-size: 3rem; color: #ccc;"></i>
-                    <p style="margin-top:1rem; color: #888;">Aún no hay noticias publicadas.</p>
+                    <p style="margin-top:1rem; color: #888;" data-lang="no_posts">Aún no hay noticias publicadas.</p>
                 </div>
             {% endfor %}
 
@@ -235,19 +246,51 @@
     </footer>
 
     <script>
+        // --- 0. IDIOMAS (Restaurado) ---
+        const translations = {
+            es: {
+                menu_home: "Inicio", menu_lodging: "Hospedaje", menu_daypass: "Pasadías", menu_events: "Eventos", menu_tours: "Tours", menu_blog: "Blog", menu_contact: "Contacto",
+                page_title: "Noticias del Campo",
+                page_subtitle: "Historias, eventos y novedades de Finca Pamel",
+                no_posts: "Aún no hay noticias publicadas."
+            },
+            en: {
+                menu_home: "Home", menu_lodging: "Lodging", menu_daypass: "Day Pass", menu_events: "Events", menu_tours: "Tours", menu_blog: "Blog", menu_contact: "Contact",
+                page_title: "Farm News",
+                page_subtitle: "Stories, events, and news from Finca Pamel",
+                no_posts: "No news published yet."
+            },
+            fr: {
+                menu_home: "Accueil", menu_lodging: "Hébergement", menu_daypass: "Pass Journée", menu_events: "Événements", menu_tours: "Tours", menu_blog: "Blog", menu_contact: "Contact",
+                page_title: "Nouvelles de la Ferme",
+                page_subtitle: "Histoires, événements et nouveautés de Finca Pamel",
+                no_posts: "Aucune nouvelle publiée pour le moment."
+            },
+            de: {
+                menu_home: "Start", menu_lodging: "Unterkunft", menu_daypass: "Tagespass", menu_events: "Veranstaltungen", menu_tours: "Touren", menu_blog: "Blog", menu_contact: "Kontakt",
+                page_title: "Neuigkeiten vom Bauernhof",
+                page_subtitle: "Geschichten, Veranstaltungen und Neuigkeiten von Finca Pamel",
+                no_posts: "Noch keine Neuigkeiten veröffentlicht."
+            }
+        };
+
+        function setLanguage(lang) {
+            const elements = document.querySelectorAll('[data-lang]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang][key]) element.textContent = translations[lang][key];
+            });
+        }
+
         // --- 1. LÓGICA DEL MODAL ---
         function openModal(element) {
-            // Recuperamos los datos guardados en el botón
             const title = element.getAttribute('data-title');
             const date = element.getAttribute('data-date');
             const content = element.getAttribute('data-content');
             const image = element.getAttribute('data-image');
 
-            // Llenamos el modal con esa info
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalDate').innerText = date;
-            
-            // Convertimos saltos de línea simples en HTML (<br>) para que se vea bien
             document.getElementById('modalText').innerText = content; 
 
             const imgElement = document.getElementById('modalImg');
@@ -258,17 +301,15 @@
                 imgElement.style.display = 'none';
             }
 
-            // Mostramos el modal
             document.getElementById('postModal').style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Evita scroll de fondo
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             document.getElementById('postModal').style.display = 'none';
-            document.body.style.overflow = 'auto'; // Reactiva scroll
+            document.body.style.overflow = 'auto';
         }
 
-        // Cerrar si clic fuera del contenido
         window.onclick = function(event) {
             const modal = document.getElementById('postModal');
             if (event.target == modal) {

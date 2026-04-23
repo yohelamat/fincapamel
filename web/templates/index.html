@@ -314,7 +314,7 @@
 </head>
 <body>
 
-<header>
+    <header>
         <nav>
             <div class="logo">
                 <a href="{% url 'index' %}"><h1><i class="fa-solid fa-leaf"></i> Finca Pamel</h1></a>
@@ -325,6 +325,7 @@
                 <li><a href="{% url 'hospedaje' %}" data-lang="menu_lodging">Hospedaje</a></li>
                 <li><a href="{% url 'pasadias' %}" data-lang="menu_daypass">Pasadías</a></li>
                 <li><a href="{% url 'eventos' %}" data-lang="menu_events">Eventos</a></li>
+                <li><a href="{% url 'tours' %}" data-lang="menu_tours">Tours</a></li>
                 <li><a href="{% url 'blog' %}" data-lang="menu_blog">Blog</a></li>
                 <li><a href="#contacto" data-lang="menu_contact">Contacto</a></li>
                 
@@ -400,7 +401,7 @@
                 </div>
             </a>
 
-            <a href="#" class="card-link"> 
+            <a href="{% url 'tours' %}" class="card-link"> 
                 <img src="{% static 'tour1.jpeg' %}" alt="Tours Guiados">
                 <div class="card-info">
                     <h3 data-lang="serv_tours">Tours Guiados</h3>
@@ -453,7 +454,7 @@
         </div>
 
         <div class="grid-cards">
-            <a href="#" class="card-link">
+            <a href="{% url 'nuboso' %}" class="card-link">
                 <img src="{% static 'nuboso1.JPG' %}" alt="Casa Nuboso Boquete">
                 <div class="card-info">
                     <h3>Casa Nuboso Estate</h3>
@@ -462,7 +463,7 @@
                 </div>
             </a>
 
-            <a href="#" class="card-link">
+            <a href="{% url 'studio' %}" class="card-link">
                 <img src="{% static 'studio1.jpg' %}" alt="Estudio Folklórico">
                 <div class="card-info">
                     <h3 data-lang="pollera_title">Estudio Folklórico</h3>
@@ -471,7 +472,7 @@
                 </div>
             </a>
 
-            <a href="#" class="card-link">
+            <a href="{% url 'arosemena' %}" class="card-link">
                 <img src="{% static 'arosemana1.png' %}" alt="Casa Arosemena Córdoba">
                 <div class="card-info">
                     <h3 data-lang="arosemena_title">Casa Arosemena Córdoba</h3>
@@ -494,6 +495,7 @@
                 menu_services: "Servicios",
                 menu_blog: "Blog",
                 menu_contact: "Contacto",
+                menu_tours: "Tours",
                 hero_title: "Experiencia Única en Azuero",
                 hero_subtitle: "Historia, Naturaleza y Tradición",
                 welcome_title: "Bienvenidos a la Finca Pamel",
@@ -527,6 +529,7 @@
                 menu_services: "Services",
                 menu_blog: "Blog",
                 menu_contact: "Contact",
+                menu_tours: "Tours",
                 hero_title: "Unique Experience in Azuero",
                 hero_subtitle: "History, Nature and Tradition",
                 welcome_title: "Welcome to Finca Pamel",
@@ -560,6 +563,7 @@
                 menu_services: "Services",
                 menu_blog: "Blog",
                 menu_contact: "Contact",
+                menu_tours: "Tours",
                 hero_title: "Expérience Unique à Azuero",
                 hero_subtitle: "Histoire, Nature et Tradition",
                 welcome_title: "Bienvenue à Finca Pamel",
@@ -593,6 +597,7 @@
                 menu_services: "Dienstleistungen",
                 menu_blog: "Blog",
                 menu_contact: "Kontakt",
+                menu_tours: "Touren",
                 hero_title: "Einzigartiges Erlebnis in Azuero",
                 hero_subtitle: "Geschichte, Natur und Tradition",
                 welcome_title: "Willkommen auf der Finca Pamel",

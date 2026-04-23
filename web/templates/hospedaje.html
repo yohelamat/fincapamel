@@ -171,29 +171,30 @@
                 <a href="{% url 'index' %}"><h1><i class="fa-solid fa-leaf"></i> Finca Pamel</h1></a>
             </div>
             
-            <ul class="nav-links">
-                <li><a href="{% url 'index' %}" data-lang="menu_home">Inicio</a></li>
-                <li><a href="{% url 'hospedaje' %}" data-lang="menu_lodging">Hospedaje</a></li>
-                <li><a href="{% url 'pasadias' %}" data-lang="menu_daypass">Pasadías</a></li>
-                <li><a href="{% url 'eventos' %}" data-lang="menu_events">Eventos</a></li>
-                <li><a href="{% url 'blog' %}" data-lang="menu_blog">Blog</a></li>
-                <li><a href="{% url 'index' %}#contacto" data-lang="menu_contact">Contacto</a></li>
-                
-                <div class="controls">
-                    <div class="lang-wrapper">
-                        <i class="fa-solid fa-globe"></i>
-                        <select class="lang-select" onchange="setLanguage(this.value)">
-                            <option value="es">Español</option>
-                            <option value="en">English</option>
-                            <option value="fr">Français</option>
-                            <option value="de">Deutsch</option>
-                        </select>
-                    </div>
-                    <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar Tema">
-                        <i id="theme-icon" class="fa-solid fa-moon"></i>
-                    </div>
-                </div>
-            </ul>
+<ul class="nav-links">
+    <li><a href="{% url 'index' %}" data-lang="menu_home">Inicio</a></li>
+    <li><a href="{% url 'hospedaje' %}" data-lang="menu_lodging">Hospedaje</a></li>
+    <li><a href="{% url 'pasadias' %}" data-lang="menu_daypass">Pasadías</a></li>
+    <li><a href="{% url 'eventos' %}" data-lang="menu_events">Eventos</a></li>
+    <li><a href="{% url 'tours' %}" data-lang="menu_tours">Tours</a></li>
+    <li><a href="{% url 'blog' %}" data-lang="menu_blog">Blog</a></li>
+    <li><a href="{% url 'index' %}#contacto" data-lang="menu_contact">Contacto</a></li>
+    
+    <div class="controls">
+        <div class="lang-wrapper">
+            <i class="fa-solid fa-globe"></i>
+            <select class="lang-select" onchange="setLanguage(this.value)">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+            </select>
+        </div>
+        <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar Tema">
+            <i id="theme-icon" class="fa-solid fa-moon"></i>
+        </div>
+    </div>
+</ul>
         </nav>
     </header>
 
@@ -253,7 +254,7 @@
         
         <div style="text-align: center; margin-top: 3rem;">
             <a href="https://wa.me/50769915111" class="btn btn-wa" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 30px; border-radius: 8px; background-color: var(--whatsapp); color: white; font-weight: bold; font-size: 1.1rem; transition: 0.3s;" target="_blank">
-                <i class="fa-brands fa-whatsapp"></i> <span data-lang="book_now">Reservar Ahora por WhatsApp</span>
+                <i class="fa-brands fa-whatsapp"></i> <span data-lang="book_now">Reserva por WhatsApp</span>
             </a>
         </div>
     </section>
