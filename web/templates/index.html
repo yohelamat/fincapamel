@@ -48,6 +48,7 @@
             line-height: 1.6;
             width: 100%;
             transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
         }
 
         img { max-width: 100%; display: block; }
@@ -86,6 +87,16 @@
 
         .logo h1 { font-size: 1.5rem; display: flex; align-items: center; gap: 8px; }
         
+        /* --- MENÚ HAMBURGUESA --- */
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--texto-principal);
+            transition: color 0.3s;
+        }
+        .hamburger:hover { color: var(--verde-principal); }
+
         .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
         
         .nav-links a { 
@@ -161,10 +172,6 @@
             height: 450px; 
             object-fit: cover; 
             object-position: center; 
-        }
-        
-        @media (max-width: 768px) {
-            .hero-img { height: 250px; }
         }
 
         .hero-overlay {
@@ -297,12 +304,35 @@
 
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            header { padding: 1rem; height: auto; }
-            nav { flex-direction: column; gap: 1rem; }
+            header { padding: 0.5rem 5%; height: auto; }
+            nav { flex-wrap: wrap; }
+            
+            /* Mostramos el botón en celulares */
+            .hamburger { display: block; }
+            
+            .hero-img { height: 250px; }
+            
+            /* Ocultamos y estilizamos el menú para que se deslice */
             .nav-links { 
-                display: flex; flex-direction: column; gap: 1rem; text-align: center; width: 100%;
-                border-top: 1px solid var(--borde); padding-top: 1rem;
+                position: absolute;
+                top: 100%;
+                left: -100%; 
+                flex-direction: column; 
+                gap: 1.5rem; 
+                text-align: center; 
+                width: 100%;
+                background-color: var(--bg-header);
+                padding: 2rem 0;
+                transition: 0.4s ease-in-out;
+                box-shadow: 0 10px 15px var(--sombra);
+                border-top: 1px solid var(--borde);
             }
+            
+            /* Esta clase activará la animación */
+            .nav-links.active {
+                left: 0;
+            }
+            
             .controls { 
                 margin: 0; border: none; padding: 0; justify-content: center; width: 100%; margin-top: 10px;
             }
@@ -317,10 +347,16 @@
     <header>
         <nav>
             <div class="logo">
-                <a href="{% url 'index' %}"><h1><i class="fa-solid fa-leaf"></i> Finca Pamel</h1></a>
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'logopamel.png' %}" alt="Logo Finca Pamel" style="height: 50px; width: auto;">
+                </a>
             </div>
             
-            <ul class="nav-links">
+            <div class="hamburger" id="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            
+            <ul class="nav-links" id="nav-links">
                 <li><a href="{% url 'index' %}" data-lang="menu_home">Inicio</a></li>
                 <li><a href="{% url 'hospedaje' %}" data-lang="menu_lodging">Hospedaje</a></li>
                 <li><a href="{% url 'pasadias' %}" data-lang="menu_daypass">Pasadías</a></li>
@@ -473,7 +509,7 @@
             </a>
 
             <a href="{% url 'arosemena' %}" class="card-link">
-                <img src="{% static 'arosemana1.png' %}" alt="Casa Arosemena Córdoba">
+                <img src="{% static 'a1.jpg' %}" alt="Casa Arosemena Córdoba">
                 <div class="card-info">
                     <h3 data-lang="arosemena_title">Casa Arosemena Córdoba</h3>
                     <p data-lang="arosemena_desc">Una joya histórica colonial en el corazón de La Villa de Los Santos.</p>
@@ -664,6 +700,31 @@
 
         systemPrefersDark.addEventListener('change', (e) => {
             applyTheme(e.matches);
+        });
+
+        // --- MENÚ HAMBURGUESA ---
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            
+            const icon = hamburger.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        const menuLinks = document.querySelectorAll('.nav-links a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+            });
         });
     </script>
 

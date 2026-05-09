@@ -22,7 +22,9 @@
             --sombra: rgba(0,0,0,0.3); --borde: #333333;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Open Sans', sans-serif; color: var(--texto-principal); background: var(--bg-body); line-height: 1.6; transition: 0.3s; }
+        
+        /* Agregué overflow-x: hidden para evitar scroll horizontal con el menú en móviles */
+        body { font-family: 'Open Sans', sans-serif; color: var(--texto-principal); background: var(--bg-body); line-height: 1.6; transition: 0.3s; overflow-x: hidden; }
         img { max-width: 100%; display: block; }
         a { text-decoration: none; color: inherit; }
         h1, h2, h3 { font-family: 'Montserrat', sans-serif; color: var(--verde-principal); font-weight: 700; }
@@ -31,6 +33,13 @@
         header { background: var(--bg-header); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px var(--sombra); padding: 0 5%; transition: background 0.3s; }
         nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; min-height: 70px; }
         .logo h1 { font-size: 1.5rem; display: flex; align-items: center; gap: 8px; }
+
+        /* --- MENÚ HAMBURGUESA --- */
+        .hamburger {
+            display: none; font-size: 1.8rem; cursor: pointer; color: var(--texto-principal); transition: color 0.3s;
+        }
+        .hamburger:hover { color: var(--verde-principal); }
+
         .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
         .nav-links a { color: var(--texto-secundario); font-weight: 600; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s; }
         .nav-links a:hover { color: var(--verde-principal); }
@@ -43,7 +52,9 @@
         .page-header { height: 350px; position: relative; overflow: hidden; }
         .page-header img { width: 100%; height: 100%; object-fit: cover; }
         .page-title { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; text-align: center; padding: 1rem;}
-        .page-title h2 { color: white !important; font-size: clamp(2rem, 5vw, 3.5rem); text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+        
+        /* Centrado de texto garantizado */
+        .page-title h2 { color: white !important; font-size: clamp(2rem, 5vw, 3.5rem); text-shadow: 2px 2px 5px rgba(0,0,0,0.5); text-align: center; }
 
         .detail-container { max-width: 900px; margin: 4rem auto; padding: 0 1.5rem; }
         .intro-text { text-align: center; margin-bottom: 2rem; }
@@ -90,11 +101,23 @@
             transform: scale(1.03);
         }
 
+        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 1rem; }
-            .nav-links { display: flex; flex-direction: column; text-align: center; width: 100%; padding-top: 1rem; }
-            .controls { margin: 0; padding: 0; border: none; }
+            header { padding: 0.5rem 5%; height: auto; }
+            nav { flex-wrap: wrap; }
+            
+            .hamburger { display: block; }
+            
+            .nav-links { 
+                position: absolute; top: 100%; left: -100%; flex-direction: column; gap: 1.5rem; text-align: center; 
+                width: 100%; background-color: var(--bg-header); padding: 2rem 0; transition: 0.4s ease-in-out;
+                box-shadow: 0 10px 15px var(--sombra); border-top: 1px solid var(--borde);
+            }
+            .nav-links.active { left: 0; }
+            
+            .controls { margin: 0; padding: 0; border: none; justify-content: center; width: 100%; margin-top: 10px;}
             .page-header { height: 250px; }
+            .page-title h2 { font-size: 2rem; padding: 0 20px; }
         }
         footer { background: #111; color: #aaa; text-align: center; padding: 2rem; margin-top: 4rem; }
     </style>
@@ -104,33 +127,39 @@
     <header>
         <nav>
             <div class="logo">
-                <a href="{% url 'index' %}"><h1><i class="fa-solid fa-leaf"></i> Finca Pamel</h1></a>
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'logopamel.png' %}" alt="Logo Finca Pamel" style="height: 50px; width: auto;">
+                </a>
             </div>
             
-<ul class="nav-links">
-    <li><a href="{% url 'index' %}" data-lang="menu_home">Inicio</a></li>
-    <li><a href="{% url 'hospedaje' %}" data-lang="menu_lodging">Hospedaje</a></li>
-    <li><a href="{% url 'pasadias' %}" data-lang="menu_daypass">Pasadías</a></li>
-    <li><a href="{% url 'eventos' %}" data-lang="menu_events">Eventos</a></li>
-    <li><a href="{% url 'tours' %}" data-lang="menu_tours">Tours</a></li>
-    <li><a href="{% url 'blog' %}" data-lang="menu_blog">Blog</a></li>
-    <li><a href="{% url 'index' %}#contacto" data-lang="menu_contact">Contacto</a></li>
-    
-    <div class="controls">
-        <div class="lang-wrapper">
-            <i class="fa-solid fa-globe"></i>
-            <select class="lang-select" onchange="setLanguage(this.value)">
-                <option value="es">Español</option>
-                <option value="en">English</option>
-                <option value="fr">Français</option>
-                <option value="de">Deutsch</option>
-            </select>
-        </div>
-        <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar Tema">
-            <i id="theme-icon" class="fa-solid fa-moon"></i>
-        </div>
-    </div>
-</ul>
+            <div class="hamburger" id="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            
+            <ul class="nav-links" id="nav-links">
+                <li><a href="{% url 'index' %}" data-lang="menu_home">Inicio</a></li>
+                <li><a href="{% url 'hospedaje' %}" data-lang="menu_lodging">Hospedaje</a></li>
+                <li><a href="{% url 'pasadias' %}" data-lang="menu_daypass">Pasadías</a></li>
+                <li><a href="{% url 'eventos' %}" data-lang="menu_events">Eventos</a></li>
+                <li><a href="{% url 'tours' %}" data-lang="menu_tours">Tours</a></li>
+                <li><a href="{% url 'blog' %}" data-lang="menu_blog">Blog</a></li>
+                <li><a href="{% url 'index' %}#contacto" data-lang="menu_contact">Contacto</a></li>
+                
+                <div class="controls">
+                    <div class="lang-wrapper">
+                        <i class="fa-solid fa-globe"></i>
+                        <select class="lang-select" onchange="setLanguage(this.value)">
+                            <option value="es">Español</option>
+                            <option value="en">English</option>
+                            <option value="fr">Français</option>
+                            <option value="de">Deutsch</option>
+                        </select>
+                    </div>
+                    <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar Tema">
+                        <i id="theme-icon" class="fa-solid fa-moon"></i>
+                    </div>
+                </div>
+            </ul>
         </nav>
     </header>
 
@@ -144,7 +173,7 @@
     <section class="detail-container">
         <div class="intro-text">
             <h3 style="margin-bottom: 1rem; font-size: 1.8rem;" data-lang="content_title">El escenario perfecto para tus recuerdos</h3>
-            <p data-lang="content_desc_1">Finca Pamel ofrece un entorno mágico e inigualable en Azuero para celebrar la vida. Ya sea una boda de ensueño al atardecer, un membrable quinceaños, recepciones de bautizo o eventos sociales, nuestras áreas verdes y ranchos se adaptan a tus sueños.</p>
+            <p data-lang="content_desc_1">Finca Pamel ofrece un entorno mágico e inigualable en Azuero para celebrar la vida. Ya sea una boda de ensueño al atardecer, un memorable quinceaños, recepciones de bautizo o eventos sociales, nuestras áreas verdes y ranchos se adaptan a tus sueños.</p>
             <br>
             <p data-lang="content_desc_2">Contamos con espacios versátiles, capacidad para grupos grandes y opciones que combinan la elegancia con nuestras tradiciones panameñas.</p>
         </div>
@@ -284,6 +313,30 @@
             else { icon.classList.remove('fa-sun'); icon.classList.add('fa-moon'); }
         }
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) toggleTheme();
+
+        // --- MENÚ HAMBURGUESA ---
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = hamburger.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        const menuLinks = document.querySelectorAll('.nav-links a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+            });
+        });
     </script>
 </body>
 </html>

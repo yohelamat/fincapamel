@@ -19,99 +19,306 @@
             --texto-principal: #3E2723;
             --texto-secundario: #6D4C41;
             --sombra: rgba(78, 52, 46, 0.1);
+            --borde: #EFEBE1;
             --whatsapp: #25D366;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Open Sans', sans-serif; color: var(--texto-principal); background-color: var(--bg-body); line-height: 1.6; }
-        img { max-width: 100%; display: block; }
-        a { text-decoration: none; color: inherit; }
-        h1, h2, h3 { font-family: 'Montserrat', sans-serif; color: var(--color-principal); font-weight: 700; }
+        /* --- DARK MODE (Adaptado a Arosemena) --- */
+        body.dark-mode {
+            --color-principal: #D35400; /* Naranja quemado en modo oscuro */
+            --color-acento: #E67E22;
+            --bg-body: #121212;
+            --bg-card: #1e1e1e;
+            --texto-principal: #f0f0f0;
+            --texto-secundario: #bbbbbb;
+            --sombra: rgba(0,0,0,0.5);
+            --borde: #333333;
+        }
 
-        /* --- BARRA DE NAVEGACIÓN --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; color: var(--texto-principal); background-color: var(--bg-body); line-height: 1.6; transition: 0.3s; overflow-x: hidden; }
+        img { max-width: 100%; display: block; border-radius: 12px; }
+        a { text-decoration: none; color: inherit; }
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; color: var(--color-principal); font-weight: 700; transition: 0.3s; }
+
+        /* --- BARRA DE NAVEGACIÓN MINIMALISTA --- */
         .top-bar {
-            background: #ffffff; width: 100%; padding: 15px 5%;
+            background: var(--bg-card); width: 100%; padding: 10px 5%;
             box-shadow: 0 2px 10px var(--sombra); position: sticky; top: 0; z-index: 1000;
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex; justify-content: space-between; align-items: center; transition: 0.3s;
         }
         .btn-volver { color: var(--texto-secundario); font-weight: 600; font-size: 0.9rem; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
         .btn-volver:hover { color: var(--color-acento); transform: translateX(-5px); }
         .brand-text { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--color-principal); font-size: 1.2rem; }
 
+        /* Controles de Idioma y Tema */
+        .controls { display: flex; align-items: center; gap: 15px; }
+        .lang-wrapper { display: flex; align-items: center; gap: 5px; color: var(--texto-secundario); }
+        .lang-select { appearance: none; background: var(--bg-card); border: 1px solid var(--borde); color: var(--texto-principal); padding: 5px 10px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-weight: bold; transition: 0.3s; }
+        .theme-toggle { cursor: pointer; color: var(--texto-principal); font-size: 1.2rem; transition: 0.3s; }
+
         /* --- HERO AROSEMENA --- */
-        .hero { position: relative; width: 100%; height: 50vh; min-height: 400px; overflow: hidden; }
-        .hero img { width: 100%; height: 100%; object-fit: cover; }
+        .hero { position: relative; width: 100%; height: 60vh; min-height: 450px; overflow: hidden; }
+        .hero img { width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
         .hero-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(78, 52, 46, 0.7), rgba(0, 0, 0, 0.4)); 
             display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1rem;
         }
-        .hero-overlay h1 { color: white; font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        .hero-overlay p { color: #fAEBDE; font-size: 1.2rem; font-weight: 400; letter-spacing: 1px; }
+        .hero-overlay h1 { color: white !important; font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero-overlay p { color: #fAEBDE; font-size: 1.3rem; font-weight: 400; letter-spacing: 1px; }
 
-        /* --- CONTENIDO --- */
-        .container { max-width: 900px; margin: 4rem auto; padding: 0 1.5rem; text-align: center; }
+        /* --- CONTENEDORES --- */
+        .container { max-width: 1100px; margin: 4rem auto; padding: 0 1.5rem; }
         
-        .amenities-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin: 3rem 0; }
-        .amenity-item { display: flex; flex-direction: column; align-items: center; width: 140px; }
-        .amenity-item i { font-size: 2.5rem; color: var(--color-acento); margin-bottom: 10px; }
+        /* --- SECCIÓN DIVIDIDA --- */
+        .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-bottom: 4rem; }
+        .split-text p { color: var(--texto-secundario); font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .split-img { width: 100%; height: 450px; object-fit: cover; box-shadow: 0 10px 30px var(--sombra); border: 3px solid var(--borde); transition: 0.3s; }
+
+        /* --- AMENIDADES --- */
+        .amenities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 4rem 0; }
+        .amenity-card { 
+            background: var(--bg-card); padding: 2rem 1rem; border-radius: 15px; 
+            text-align: center; box-shadow: 0 5px 15px var(--sombra); border: 1px solid var(--borde);
+            transition: transform 0.3s;
+        }
+        .amenity-card:hover { transform: translateY(-5px); border-color: var(--color-acento); }
+        .amenity-card i { font-size: 2.5rem; color: var(--color-acento); margin-bottom: 15px; }
+
+        /* --- GRID DE GALERÍA --- */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 2rem; }
+        .gallery-img { width: 100%; height: 300px; object-fit: cover; transition: transform 0.3s; cursor: pointer; border: 2px solid transparent; }
+        .gallery-img:hover { transform: scale(1.02); box-shadow: 0 10px 20px var(--sombra); border-color: var(--color-acento); }
+
+        /* --- CTA BANNER --- */
+        .cta-banner {
+            background: var(--color-principal); color: white; text-align: center;
+            padding: 4rem 2rem; border-radius: 20px; margin-top: 5rem;
+            box-shadow: 0 10px 30px var(--sombra);
+            border: 2px solid rgba(211, 84, 0, 0.3);
+            transition: 0.3s;
+        }
+        body.dark-mode .cta-banner { background: #1a1a1a; }
+        .cta-banner h2 { color: #fAEBDE !important; margin-bottom: 1rem; }
+        body.dark-mode .cta-banner h2 { color: var(--color-acento) !important; }
+        .cta-banner p { font-size: 1.1rem; margin-bottom: 2rem; color: white; opacity: 0.9; }
 
         .btn-reserva {
-            display: inline-flex; align-items: center; gap: 10px; background: var(--whatsapp); color: white;
-            padding: 15px 35px; border-radius: 50px; font-weight: bold; font-size: 1.1rem;
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--whatsapp); color: white; padding: 15px 35px;
+            border-radius: 50px; font-weight: bold; font-size: 1.1rem;
             transition: 0.3s; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
         }
-        .btn-reserva:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4); }
+        .btn-reserva:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4); color: white; }
+
+        @media (max-width: 768px) {
+            .top-bar { flex-wrap: wrap; justify-content: center; gap: 10px; padding: 15px; }
+            .controls { width: 100%; justify-content: center; margin-top: 10px; border-top: 1px solid var(--borde); padding-top: 10px; }
+            .split-section { grid-template-columns: 1fr; }
+            .split-img { height: 350px; }
+            .hero { height: 40vh; min-height: 300px; }
+        }
+        footer { text-align: center; padding: 2rem; color: var(--texto-secundario); font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
         <a href="{% url 'index' %}" class="btn-volver">
-            <i class="fa-solid fa-arrow-left"></i> Volver a Finca Pamel
+            <i class="fa-solid fa-arrow-left"></i> <span data-lang="btn_back">Volver a Finca Pamel</span>
         </a>
         <div class="brand-text">Familia Pamel</div>
+
+        <div class="controls">
+            <div class="lang-wrapper">
+                <i class="fa-solid fa-globe"></i>
+                <select class="lang-select" onchange="setLanguage(this.value)">
+                    <option value="es">Español</option>
+                    <option value="en">English</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                </select>
+            </div>
+            <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar Tema">
+                <i id="theme-icon" class="fa-solid fa-moon"></i>
+            </div>
+        </div>
     </div>
 
     <section class="hero">
-        <img src="{% static 'arosemana1.png' %}" alt="Casa Arosemena Córdoba">
+        <img src="{% static 'a4.jpg' %}" alt="Casa Arosemena Córdoba">
         <div class="hero-overlay">
             <h1>Casa Arosemena Córdoba</h1>
-            <p>Una joya histórica en el corazón de La Villa</p>
+            <p data-lang="hero_sub">Una joya histórica en el corazón de La Villa</p>
         </div>
     </section>
 
     <section class="container">
-        <h2 style="margin-bottom: 1.5rem;">Viaja en el tiempo</h2>
-        <p style="color: var(--texto-secundario); font-size: 1.1rem; margin-bottom: 2rem;">
-            Hospédate en una auténtica casona colonial conservada con amor y respeto por sus raíces. Sus paredes de quincha, puertas de madera tallada y patio central te transportarán a otra época, sin renunciar al confort moderno que mereces en el corazón histórico de Los Santos.
-        </p>
-
-        <div class="amenities-grid">
-            <div class="amenity-item">
-                <i class="fa-solid fa-landmark"></i>
-                <strong>Arquitectura Colonial</strong>
+        
+        <div class="split-section">
+            <div class="split-text">
+                <h2 style="margin-bottom: 1rem; font-size: 2.2rem;" data-lang="intro_title">Viaja en el tiempo</h2>
+                <p data-lang="intro_p1">
+                    Hospédate en una auténtica casona colonial conservada con amor y respeto por sus raíces. Una experiencia única que te conecta con la historia viva de Panamá.
+                </p>
+                <p data-lang="intro_p2">
+                    Sus paredes de quincha, sus pesadas puertas de madera tallada y su acogedor patio central te transportarán a otra época, sin renunciar al confort moderno que mereces en el corazón histórico de Los Santos.
+                </p>
             </div>
-            <div class="amenity-item">
-                <i class="fa-solid fa-location-dot"></i>
-                <strong>Ubicación Céntrica</strong>
-            </div>
-            <div class="amenity-item">
-                <i class="fa-solid fa-bed"></i>
-                <strong>Hospedaje Exclusivo</strong>
-            </div>
-            <div class="amenity-item">
-                <i class="fa-solid fa-chess-rook"></i>
-                <strong>Historia y Tradición</strong>
+            <div>
+                <img src="{% static 'a1.jpg' %}" alt="Interior Casa Arosemena" class="split-img">
             </div>
         </div>
 
-        <div style="margin-top: 4rem;">
+        <h2 style="text-align: center;" data-lang="amenities_title">Una estadía inolvidable</h2>
+        <div class="amenities-grid">
+            <div class="amenity-card">
+                <i class="fa-solid fa-landmark"></i>
+                <h3 style="font-size: 1.1rem;" data-lang="am_arch_title">Arquitectura Colonial</h3>
+                <p style="font-size: 0.9rem; color: var(--texto-secundario);" data-lang="am_arch_desc">Paredes de quincha y techos de teja originales.</p>
+            </div>
+            <div class="amenity-card">
+                <i class="fa-solid fa-location-dot"></i>
+                <h3 style="font-size: 1.1rem;" data-lang="am_loc_title">Ubicación Céntrica</h3>
+                <p style="font-size: 0.9rem; color: var(--texto-secundario);" data-lang="am_loc_desc">A pasos del parque central de La Villa.</p>
+            </div>
+            <div class="amenity-card">
+                <i class="fa-solid fa-bed"></i>
+                <h3 style="font-size: 1.1rem;" data-lang="am_bed_title">Hospedaje Exclusivo</h3>
+                <p style="font-size: 0.9rem; color: var(--texto-secundario);" data-lang="am_bed_desc">Comodidad moderna en un ambiente de época.</p>
+            </div>
+            <div class="amenity-card">
+                <i class="fa-solid fa-chess-rook"></i>
+                <h3 style="font-size: 1.1rem;" data-lang="am_hist_title">Historia y Tradición</h3>
+                <p style="font-size: 0.9rem; color: var(--texto-secundario);" data-lang="am_hist_desc">Sumérgete en la cultura santeña.</p>
+            </div>
+        </div>
+
+        <h2 style="text-align: center; margin-bottom: 1rem;" data-lang="gallery_title">Nuestros Rincones</h2>
+        <p style="text-align: center; color: var(--texto-secundario); margin-bottom: 2rem;" data-lang="gallery_sub">Conoce los detalles de esta joya arquitectónica</p>
+        
+        <div class="gallery-grid">
+            <img src="{% static 'a1.jpg' %}" alt="Rincón Casa Arosemena 1" class="gallery-img">
+            <img src="{% static 'a2.jpg' %}" alt="Rincón Casa Arosemena 2" class="gallery-img">
+            <img src="{% static 'a3.jpg' %}" alt="Rincón Casa Arosemena 3" class="gallery-img">
+            <img src="{% static 'a4.jpg' %}" alt="Rincón Casa Arosemena 4" class="gallery-img">
+        </div>
+
+        <div class="cta-banner">
+            <h2 data-lang="cta_title">¿Listo para vivir la historia?</h2>
+            <p data-lang="cta_desc">Escríbenos para consultar disponibilidad y reservar tu estancia colonial.</p>
             <a href="https://wa.me/50769915111" class="btn-reserva" target="_blank">
-                <i class="fa-brands fa-whatsapp"></i> Reservar Estancia
+                <i class="fa-brands fa-whatsapp"></i> <span data-lang="btn_book">Reservar Estancia</span>
             </a>
         </div>
+
     </section>
 
+    <footer>
+        <p>© 2026 Familia Pamel. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // --- TRADUCCIONES ---
+        const translations = {
+            es: {
+                btn_back: "Volver a Finca Pamel",
+                hero_sub: "Una joya histórica en el corazón de La Villa",
+                intro_title: "Viaja en el tiempo",
+                intro_p1: "Hospédate en una auténtica casona colonial conservada con amor y respeto por sus raíces. Una experiencia única que te conecta con la historia viva de Panamá.",
+                intro_p2: "Sus paredes de quincha, sus pesadas puertas de madera tallada y su acogedor patio central te transportarán a otra época, sin renunciar al confort moderno que mereces en el corazón histórico de Los Santos.",
+                amenities_title: "Una estadía inolvidable",
+                am_arch_title: "Arquitectura Colonial", am_arch_desc: "Paredes de quincha y techos de teja originales.",
+                am_loc_title: "Ubicación Céntrica", am_loc_desc: "A pasos del parque central de La Villa.",
+                am_bed_title: "Hospedaje Exclusivo", am_bed_desc: "Comodidad moderna en un ambiente de época.",
+                am_hist_title: "Historia y Tradición", am_hist_desc: "Sumérgete en la cultura santeña.",
+                gallery_title: "Nuestros Rincones",
+                gallery_sub: "Conoce los detalles de esta joya arquitectónica",
+                cta_title: "¿Listo para vivir la historia?",
+                cta_desc: "Escríbenos para consultar disponibilidad y reservar tu estancia colonial.",
+                btn_book: "Reservar Estancia"
+            },
+            en: {
+                btn_back: "Back to Finca Pamel",
+                hero_sub: "A historic jewel in the heart of La Villa",
+                intro_title: "Travel back in time",
+                intro_p1: "Stay in an authentic colonial house preserved with love and respect for its roots. A unique experience that connects you with the living history of Panama.",
+                intro_p2: "Its quincha walls, heavy carved wooden doors, and cozy central courtyard will transport you to another era, without giving up the modern comfort you deserve in the historic heart of Los Santos.",
+                amenities_title: "An unforgettable stay",
+                am_arch_title: "Colonial Architecture", am_arch_desc: "Original quincha walls and tile roofs.",
+                am_loc_title: "Central Location", am_loc_desc: "Steps away from La Villa's central park.",
+                am_bed_title: "Exclusive Lodging", am_bed_desc: "Modern comfort in a period setting.",
+                am_hist_title: "History and Tradition", am_hist_desc: "Immerse yourself in Santeño culture.",
+                gallery_title: "Our Corners",
+                gallery_sub: "Discover the details of this architectural jewel",
+                cta_title: "Ready to live history?",
+                cta_desc: "Write to us to check availability and book your colonial stay.",
+                btn_book: "Book Stay"
+            },
+            fr: {
+                btn_back: "Retour à Finca Pamel",
+                hero_sub: "Un joyau historique au cœur de La Villa",
+                intro_title: "Voyagez dans le temps",
+                intro_p1: "Séjournez dans une authentique maison coloniale préservée avec amour et respect de ses racines. Une expérience unique qui vous connecte à l'histoire vivante du Panama.",
+                intro_p2: "Ses murs en quincha, ses lourdes portes en bois sculpté et sa cour centrale chaleureuse vous transporteront dans une autre époque, sans renoncer au confort moderne que vous méritez dans le cœur historique de Los Santos.",
+                amenities_title: "Un séjour inoubliable",
+                am_arch_title: "Architecture Coloniale", am_arch_desc: "Murs en quincha et toits en tuiles d'origine.",
+                am_loc_title: "Emplacement Central", am_loc_desc: "À quelques pas du parc central de La Villa.",
+                am_bed_title: "Hébergement Exclusif", am_bed_desc: "Confort moderne dans un cadre d'époque.",
+                am_hist_title: "Histoire et Tradition", am_hist_desc: "Plongez dans la culture de Los Santos.",
+                gallery_title: "Nos Coins",
+                gallery_sub: "Découvrez les détails de ce joyau architectural",
+                cta_title: "Prêt à vivre l'histoire ?",
+                cta_desc: "Écrivez-nous pour vérifier la disponibilité et réserver votre séjour colonial.",
+                btn_book: "Réserver le Séjour"
+            },
+            de: {
+                btn_back: "Zurück zur Finca Pamel",
+                hero_sub: "Ein historisches Juwel im Herzen von La Villa",
+                intro_title: "Reise in die Vergangenheit",
+                intro_p1: "Übernachten Sie in einem authentischen Kolonialhaus, das mit Liebe und Respekt für seine Wurzeln erhalten wurde. Ein einzigartiges Erlebnis, das Sie mit der lebendigen Geschichte Panamas verbindet.",
+                intro_p2: "Seine Quincha-Wände, schweren geschnitzten Holztüren und der gemütliche Innenhof versetzen Sie in eine andere Zeit, ohne auf den modernen Komfort zu verzichten, den Sie im historischen Herzen von Los Santos verdienen.",
+                amenities_title: "Ein unvergesslicher Aufenthalt",
+                am_arch_title: "Koloniale Architektur", am_arch_desc: "Original Quincha-Wände und Ziegeldächer.",
+                am_loc_title: "Zentrale Lage", am_loc_desc: "Nur wenige Schritte vom zentralen Park von La Villa entfernt.",
+                am_bed_title: "Exklusive Unterkunft", am_bed_desc: "Moderner Komfort in historischem Ambiente.",
+                am_hist_title: "Geschichte und Tradition", am_hist_desc: "Tauchen Sie ein in die Kultur von Los Santos.",
+                gallery_title: "Unsere Ecken",
+                gallery_sub: "Entdecken Sie die Details dieses architektonischen Juwels",
+                cta_title: "Bereit, Geschichte zu erleben?",
+                cta_desc: "Schreiben Sie uns, um die Verfügbarkeit zu prüfen und Ihren kolonialen Aufenthalt zu buchen.",
+                btn_book: "Aufenthalt Buchen"
+            }
+        };
+
+        function setLanguage(lang) {
+            const elements = document.querySelectorAll('[data-lang]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang][key]) element.textContent = translations[lang][key];
+            });
+        }
+
+        // --- DARK MODE LOGIC ---
+        function applyTheme(isDark) {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            if (isDark) {
+                body.classList.add('dark-mode');
+                icon.classList.remove('fa-moon'); icon.classList.add('fa-sun');
+            } else {
+                body.classList.remove('dark-mode');
+                icon.classList.remove('fa-sun'); icon.classList.add('fa-moon');
+            }
+        }
+        function toggleTheme() {
+            const isDarkNow = document.body.classList.contains('dark-mode');
+            applyTheme(!isDarkNow);
+        }
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        applyTheme(systemPrefersDark.matches);
+        systemPrefersDark.addEventListener('change', (e) => { applyTheme(e.matches); });
+    </script>
 </body>
 </html>

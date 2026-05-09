@@ -45,6 +45,7 @@
             background-color: var(--bg-body);
             line-height: 1.6;
             transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
         }
 
         img { max-width: 100%; display: block; }
@@ -74,6 +75,17 @@
         }
 
         .logo h1 { font-size: 1.5rem; display: flex; align-items: center; gap: 8px; }
+        
+        /* --- MENÚ HAMBURGUESA --- */
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--texto-principal);
+            transition: color 0.3s;
+        }
+        .hamburger:hover { color: var(--verde-principal); }
+
         .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
         .nav-links a { 
             color: var(--texto-secundario); font-weight: 600; 
@@ -156,9 +168,33 @@
         footer { background: #111; color: #aaa; text-align: center; padding: 2rem; }
 
         @media (max-width: 768px) {
-            header { padding: 1rem; height: auto; }
-            nav { flex-direction: column; gap: 1rem; }
-            .nav-links { flex-direction: column; gap: 1rem; border-top: 1px solid var(--borde); padding-top: 1rem; }
+            header { padding: 0.5rem 5%; height: auto; }
+            nav { flex-wrap: wrap; }
+            
+            /* Mostramos el botón en celulares */
+            .hamburger { display: block; }
+            
+            /* Ocultamos y estilizamos el menú para que se deslice */
+            .nav-links { 
+                position: absolute;
+                top: 100%;
+                left: -100%; 
+                flex-direction: column; 
+                gap: 1.5rem; 
+                text-align: center; 
+                width: 100%;
+                background-color: var(--bg-header);
+                padding: 2rem 0;
+                transition: 0.4s ease-in-out;
+                box-shadow: 0 10px 15px var(--sombra);
+                border-top: 1px solid var(--borde);
+            }
+            
+            /* Esta clase activará la animación */
+            .nav-links.active {
+                left: 0;
+            }
+            
             .controls { margin: 0; border: none; padding: 0; justify-content: center; width: 100%; margin-top: 10px; }
         }
     </style>
@@ -168,33 +204,39 @@
     <header>
         <nav>
             <div class="logo">
-                <a href="{% url 'index' %}"><h1><i class="fa-solid fa-leaf"></i> Finca Pamel</h1></a>
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'logopamel.png' %}" alt="Logo Finca Pamel" style="height: 50px; width: auto;">
+                </a>
             </div>
             
-<ul class="nav-links">
-    <li><a href="{% url 'index' %}" data-lang="menu_home">Inicio</a></li>
-    <li><a href="{% url 'hospedaje' %}" data-lang="menu_lodging">Hospedaje</a></li>
-    <li><a href="{% url 'pasadias' %}" data-lang="menu_daypass">Pasadías</a></li>
-    <li><a href="{% url 'eventos' %}" data-lang="menu_events">Eventos</a></li>
-    <li><a href="{% url 'tours' %}" data-lang="menu_tours">Tours</a></li>
-    <li><a href="{% url 'blog' %}" data-lang="menu_blog">Blog</a></li>
-    <li><a href="{% url 'index' %}#contacto" data-lang="menu_contact">Contacto</a></li>
-    
-    <div class="controls">
-        <div class="lang-wrapper">
-            <i class="fa-solid fa-globe"></i>
-            <select class="lang-select" onchange="setLanguage(this.value)">
-                <option value="es">Español</option>
-                <option value="en">English</option>
-                <option value="fr">Français</option>
-                <option value="de">Deutsch</option>
-            </select>
-        </div>
-        <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar Tema">
-            <i id="theme-icon" class="fa-solid fa-moon"></i>
-        </div>
-    </div>
-</ul>
+            <div class="hamburger" id="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            
+            <ul class="nav-links" id="nav-links">
+                <li><a href="{% url 'index' %}" data-lang="menu_home">Inicio</a></li>
+                <li><a href="{% url 'hospedaje' %}" data-lang="menu_lodging">Hospedaje</a></li>
+                <li><a href="{% url 'pasadias' %}" data-lang="menu_daypass">Pasadías</a></li>
+                <li><a href="{% url 'eventos' %}" data-lang="menu_events">Eventos</a></li>
+                <li><a href="{% url 'tours' %}" data-lang="menu_tours">Tours</a></li>
+                <li><a href="{% url 'blog' %}" data-lang="menu_blog">Blog</a></li>
+                <li><a href="{% url 'index' %}#contacto" data-lang="menu_contact">Contacto</a></li>
+                
+                <div class="controls">
+                    <div class="lang-wrapper">
+                        <i class="fa-solid fa-globe"></i>
+                        <select class="lang-select" onchange="setLanguage(this.value)">
+                            <option value="es">Español</option>
+                            <option value="en">English</option>
+                            <option value="fr">Français</option>
+                            <option value="de">Deutsch</option>
+                        </select>
+                    </div>
+                    <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar Tema">
+                        <i id="theme-icon" class="fa-solid fa-moon"></i>
+                    </div>
+                </div>
+            </ul>
         </nav>
     </header>
 
@@ -272,8 +314,8 @@
                 menu_events: "Eventos",
                 menu_blog: "Blog",
                 menu_contact: "Contacto",
+                menu_tours: "Tours",
                 
-                // Nuevas traducciones para Hospedaje
                 lodging_hero_title: "Hospedaje Familiar",
                 lodging_hero_subtitle: "Descanso, naturaleza y comodidad",
                 lodging_intro_title: "Nuestras Habitaciones",
@@ -293,6 +335,7 @@
                 menu_events: "Events",
                 menu_blog: "Blog",
                 menu_contact: "Contact",
+                menu_tours: "Tours",
                 
                 lodging_hero_title: "Family Lodging",
                 lodging_hero_subtitle: "Rest, nature and comfort",
@@ -313,6 +356,7 @@
                 menu_events: "Événements",
                 menu_blog: "Blog",
                 menu_contact: "Contact",
+                menu_tours: "Tours",
                 
                 lodging_hero_title: "Hébergement Familial",
                 lodging_hero_subtitle: "Repos, nature et confort",
@@ -333,6 +377,7 @@
                 menu_events: "Veranstaltungen",
                 menu_blog: "Blog",
                 menu_contact: "Kontakt",
+                menu_tours: "Touren",
                 
                 lodging_hero_title: "Familienunterkunft",
                 lodging_hero_subtitle: "Erholung, Natur und Komfort",
@@ -383,6 +428,31 @@
 
         systemPrefersDark.addEventListener('change', (e) => {
             applyTheme(e.matches);
+        });
+
+        // --- MENÚ HAMBURGUESA ---
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            
+            const icon = hamburger.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        const menuLinks = document.querySelectorAll('.nav-links a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+            });
         });
     </script>
 

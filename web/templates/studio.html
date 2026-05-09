@@ -19,24 +19,43 @@
             --texto-principal: #333333;
             --texto-secundario: #666666;
             --sombra: rgba(139, 0, 0, 0.1);
+            --borde: #f5eedc;
             --whatsapp: #25D366;
         }
 
+        /* --- DARK MODE (Adaptado a Estudio) --- */
+        body.dark-mode {
+            --color-principal: #D4AF37; /* El título principal se vuelve dorado */
+            --color-acento: #F1C40F;
+            --bg-body: #121212;
+            --bg-card: #1e1e1e;
+            --texto-principal: #f0f0f0;
+            --texto-secundario: #bbbbbb;
+            --sombra: rgba(0,0,0,0.5);
+            --borde: #333333;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Open Sans', sans-serif; color: var(--texto-principal); background-color: var(--bg-body); line-height: 1.6; }
+        body { font-family: 'Open Sans', sans-serif; color: var(--texto-principal); background-color: var(--bg-body); line-height: 1.6; transition: 0.3s; overflow-x: hidden;}
         img { max-width: 100%; display: block; border-radius: 12px; }
         a { text-decoration: none; color: inherit; }
-        h1, h2, h3 { font-family: 'Montserrat', sans-serif; color: var(--color-principal); font-weight: 700; }
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; color: var(--color-principal); font-weight: 700; transition: 0.3s; }
 
         /* --- BARRA DE NAVEGACIÓN --- */
         .top-bar {
-            background: #ffffff; width: 100%; padding: 15px 5%;
+            background: var(--bg-card); width: 100%; padding: 10px 5%;
             box-shadow: 0 2px 10px var(--sombra); position: sticky; top: 0; z-index: 1000;
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex; justify-content: space-between; align-items: center; transition: 0.3s;
         }
         .btn-volver { color: var(--texto-secundario); font-weight: 600; font-size: 0.9rem; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
-        .btn-volver:hover { color: var(--color-principal); transform: translateX(-5px); }
-        .brand-text { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--color-acento); font-size: 1.2rem; }
+        .btn-volver:hover { color: var(--color-acento); transform: translateX(-5px); }
+        .brand-text { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--color-principal); font-size: 1.2rem; }
+
+        /* Controles de Idioma y Tema */
+        .controls { display: flex; align-items: center; gap: 15px; }
+        .lang-wrapper { display: flex; align-items: center; gap: 5px; color: var(--texto-secundario); }
+        .lang-select { appearance: none; background: var(--bg-card); border: 1px solid var(--borde); color: var(--texto-principal); padding: 5px 10px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; font-weight: bold; transition: 0.3s; }
+        .theme-toggle { cursor: pointer; color: var(--texto-principal); font-size: 1.2rem; transition: 0.3s; }
 
         /* --- HERO ESTUDIO --- */
         .hero { position: relative; width: 100%; height: 60vh; min-height: 450px; overflow: hidden; }
@@ -46,42 +65,29 @@
             background: linear-gradient(rgba(139, 0, 0, 0.7), rgba(0, 0, 0, 0.4)); 
             display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1rem;
         }
-        .hero-overlay h1 { color: white; font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero-overlay h1 { color: white !important; font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
         .hero-overlay p { color: #f0f0f0; font-size: 1.3rem; font-weight: 600; letter-spacing: 1px; }
 
         /* --- CONTENEDORES --- */
         .container { max-width: 1100px; margin: 4rem auto; padding: 0 1.5rem; }
         
-        /* --- SECCIÓN DIVIDIDA (Texto y Foto) --- */
-        .split-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-            margin-bottom: 4rem;
-        }
+        /* --- SECCIÓN DIVIDIDA --- */
+        .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-bottom: 4rem; }
         .split-text p { color: var(--texto-secundario); font-size: 1.1rem; margin-bottom: 1.5rem; }
-        .split-img { width: 100%; height: 450px; object-fit: cover; box-shadow: 0 10px 30px var(--sombra); border: 3px solid var(--color-acento); }
+        .split-img { width: 100%; height: 450px; object-fit: cover; box-shadow: 0 10px 30px var(--sombra); border: 3px solid var(--color-acento); transition: 0.3s; }
 
         /* --- AMENIDADES EN TARJETAS --- */
-        .amenities-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 4rem 0;
-        }
+        .amenities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 4rem 0; }
         .amenity-card { 
             background: var(--bg-card); padding: 2rem 1rem; border-radius: 15px; 
-            text-align: center; box-shadow: 0 5px 15px var(--sombra); border: 1px solid #f5eedc;
+            text-align: center; box-shadow: 0 5px 15px var(--sombra); border: 1px solid var(--borde);
             transition: transform 0.3s;
         }
         .amenity-card:hover { transform: translateY(-5px); border-color: var(--color-acento); }
         .amenity-card i { font-size: 2.5rem; color: var(--color-acento); margin-bottom: 15px; }
 
         /* --- GRID DE GALERÍA --- */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 2rem;
-        }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 2rem; }
         .gallery-img { width: 100%; height: 300px; object-fit: cover; transition: transform 0.3s; cursor: pointer; border: 2px solid transparent;}
         .gallery-img:hover { transform: scale(1.02); box-shadow: 0 10px 20px var(--sombra); border-color: var(--color-acento); }
 
@@ -89,10 +95,12 @@
         .cta-banner {
             background: var(--color-principal); color: white; text-align: center;
             padding: 4rem 2rem; border-radius: 20px; margin-top: 5rem;
-            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3);
+            box-shadow: 0 10px 30px var(--sombra);
             border: 2px solid var(--color-acento);
+            transition: 0.3s;
         }
-        .cta-banner h2 { color: var(--color-acento); margin-bottom: 1rem; }
+        body.dark-mode .cta-banner { background: #1a1a1a; }
+        .cta-banner h2 { color: var(--color-acento) !important; margin-bottom: 1rem; }
         .cta-banner p { font-size: 1.1rem; margin-bottom: 2rem; color: white; opacity: 0.9; }
 
         .btn-reserva {
@@ -101,9 +109,11 @@
             border-radius: 50px; font-weight: bold; font-size: 1.1rem;
             transition: 0.3s; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
         }
-        .btn-reserva:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4); }
+        .btn-reserva:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4); color: white; }
 
         @media (max-width: 768px) {
+            .top-bar { flex-wrap: wrap; justify-content: center; gap: 10px; padding: 15px; }
+            .controls { width: 100%; justify-content: center; margin-top: 10px; border-top: 1px solid var(--borde); padding-top: 10px; }
             .split-section { grid-template-columns: 1fr; }
             .split-img { height: 350px; }
             .hero { height: 40vh; min-height: 300px; }
@@ -115,16 +125,31 @@
 
     <div class="top-bar">
         <a href="{% url 'index' %}" class="btn-volver">
-            <i class="fa-solid fa-arrow-left"></i> Volver a Finca Pamel
+            <i class="fa-solid fa-arrow-left"></i> <span data-lang="btn_back">Volver a Finca Pamel</span>
         </a>
         <div class="brand-text">Familia Pamel</div>
+
+        <div class="controls">
+            <div class="lang-wrapper">
+                <i class="fa-solid fa-globe"></i>
+                <select class="lang-select" onchange="setLanguage(this.value)">
+                    <option value="es">Español</option>
+                    <option value="en">English</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                </select>
+            </div>
+            <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar Tema">
+                <i id="theme-icon" class="fa-solid fa-moon"></i>
+            </div>
+        </div>
     </div>
 
     <section class="hero">
         <img src="{% static 'studio1.jpg' %}" alt="Estudio Folklórico Los Santos">
         <div class="hero-overlay">
             <h1>Estudio Folklórico</h1>
-            <p>Inmortalizando la belleza de nuestra tradición</p>
+            <p data-lang="hero_sub">Inmortalizando la belleza de nuestra tradición</p>
         </div>
     </section>
 
@@ -132,11 +157,11 @@
         
         <div class="split-section">
             <div class="split-text">
-                <h2 style="margin-bottom: 1rem; font-size: 2.2rem;">Vístete de Tradición</h2>
-                <p>
+                <h2 style="margin-bottom: 1rem; font-size: 2.2rem;" data-lang="intro_title">Vístete de Tradición</h2>
+                <p data-lang="intro_p1">
                     Experimenta el orgullo de lucir nuestro Traje Típico Nacional. En nuestro Estudio Folklórico en La Villa de Los Santos, contamos con polleras de lujo, joyas tradicionales auténticas y un equipo de expertos listos para hacerte brillar.
                 </p>
-                <p>
+                <p data-lang="intro_p2">
                     Nos encargamos de cada detalle, desde el maquillaje y el arreglo de tembleques, hasta la iluminación perfecta para entregarte una sesión fotográfica digna de portada.
                 </p>
             </div>
@@ -145,32 +170,32 @@
             </div>
         </div>
 
-        <h2 style="text-align: center;">Nuestros Servicios</h2>
+        <h2 style="text-align: center;" data-lang="amenities_title">Nuestros Servicios</h2>
         <div class="amenities-grid">
             <div class="amenity-card">
                 <i class="fa-solid fa-camera-retro"></i>
-                <h3 style="font-size: 1.1rem;">Fotografía Profesional</h3>
-                <p style="font-size: 0.9rem; color: var(--texto-secundario);">Iluminación de estudio y edición de alta calidad.</p>
+                <h3 style="font-size: 1.1rem;" data-lang="am_photo_title">Fotografía Profesional</h3>
+                <p style="font-size: 0.9rem; color: var(--texto-secundario);" data-lang="am_photo_desc">Iluminación de estudio y edición de alta calidad.</p>
             </div>
             <div class="amenity-card">
                 <i class="fa-solid fa-shirt"></i>
-                <h3 style="font-size: 1.1rem;">Alquiler de Polleras</h3>
-                <p style="font-size: 0.9rem; color: var(--texto-secundario);">Polleras marcadas, zurcidas y sombreadas de lujo.</p>
+                <h3 style="font-size: 1.1rem;" data-lang="am_dress_title">Alquiler de Polleras</h3>
+                <p style="font-size: 0.9rem; color: var(--texto-secundario);" data-lang="am_dress_desc">Polleras marcadas, zurcidas y sombreadas de lujo.</p>
             </div>
             <div class="amenity-card">
                 <i class="fa-solid fa-gem"></i>
-                <h3 style="font-size: 1.1rem;">Joyas Tradicionales</h3>
-                <p style="font-size: 0.9rem; color: var(--texto-secundario);">Cadenas, mosquetas y peinetas resplandecientes.</p>
+                <h3 style="font-size: 1.1rem;" data-lang="am_jewel_title">Joyas Tradicionales</h3>
+                <p style="font-size: 0.9rem; color: var(--texto-secundario);" data-lang="am_jewel_desc">Cadenas, mosquetas y peinetas resplandecientes.</p>
             </div>
             <div class="amenity-card">
                 <i class="fa-solid fa-wand-magic-sparkles"></i>
-                <h3 style="font-size: 1.1rem;">Arreglo y Maquillaje</h3>
-                <p style="font-size: 0.9rem; color: var(--texto-secundario);">Tembleques y maquillaje profesional incluido.</p>
+                <h3 style="font-size: 1.1rem;" data-lang="am_makeup_title">Arreglo y Maquillaje</h3>
+                <p style="font-size: 0.9rem; color: var(--texto-secundario);" data-lang="am_makeup_desc">Tembleques y maquillaje profesional incluido.</p>
             </div>
         </div>
 
-        <h2 style="text-align: center; margin-bottom: 1rem;">Nuestras Empoilleradas</h2>
-        <p style="text-align: center; color: var(--texto-secundario); margin-bottom: 2rem;">Un vistazo al arte de vestir nuestro traje típico</p>
+        <h2 style="text-align: center; margin-bottom: 1rem;" data-lang="gallery_title">Nuestras Empoilleradas</h2>
+        <p style="text-align: center; color: var(--texto-secundario); margin-bottom: 2rem;" data-lang="gallery_sub">Un vistazo al arte de vestir nuestro traje típico</p>
         
         <div class="gallery-grid">
             <img src="{% static 's1.jpg' %}" alt="Sesión Folklórica 1" class="gallery-img">
@@ -181,15 +206,13 @@
             <img src="{% static 's6.jpg' %}" alt="Sesión Folklórica 6" class="gallery-img">
             <img src="{% static 's7.jpg' %}" alt="Sesión Folklórica 7" class="gallery-img">
             <img src="{% static 's8.jpg' %}" alt="Sesión Folklórica 8" class="gallery-img">
-          
-            
         </div>
 
         <div class="cta-banner">
-            <h2>¿Lista para tu sesión de fotos?</h2>
-            <p>Escríbenos para consultar paquetes, disponibilidad y reservar tu fecha.</p>
+            <h2 data-lang="cta_title">¿Lista para tu sesión de fotos?</h2>
+            <p data-lang="cta_desc">Escríbenos para consultar paquetes, disponibilidad y reservar tu fecha.</p>
             <a href="https://wa.me/50769915111" class="btn-reserva" target="_blank">
-                <i class="fa-brands fa-whatsapp"></i> Agendar Sesión
+                <i class="fa-brands fa-whatsapp"></i> <span data-lang="btn_book">Agendar Sesión</span>
             </a>
         </div>
 
@@ -199,5 +222,106 @@
         <p>© 2026 Familia Pamel. Todos los derechos reservados.</p>
     </footer>
 
+    <script>
+        // --- TRADUCCIONES ---
+        const translations = {
+            es: {
+                btn_back: "Volver a Finca Pamel",
+                hero_sub: "Inmortalizando la belleza de nuestra tradición",
+                intro_title: "Vístete de Tradición",
+                intro_p1: "Experimenta el orgullo de lucir nuestro Traje Típico Nacional. En nuestro Estudio Folklórico en La Villa de Los Santos, contamos con polleras de lujo, joyas tradicionales auténticas y un equipo de expertos listos para hacerte brillar.",
+                intro_p2: "Nos encargamos de cada detalle, desde el maquillaje y el arreglo de tembleques, hasta la iluminación perfecta para entregarte una sesión fotográfica digna de portada.",
+                amenities_title: "Nuestros Servicios",
+                am_photo_title: "Fotografía Profesional", am_photo_desc: "Iluminación de estudio y edición de alta calidad.",
+                am_dress_title: "Alquiler de Polleras", am_dress_desc: "Polleras marcadas, zurcidas y sombreadas de lujo.",
+                am_jewel_title: "Joyas Tradicionales", am_jewel_desc: "Cadenas, mosquetas y peinetas resplandecientes.",
+                am_makeup_title: "Arreglo y Maquillaje", am_makeup_desc: "Tembleques y maquillaje profesional incluido.",
+                gallery_title: "Nuestras Empolleradas",
+                gallery_sub: "Un vistazo al arte de vestir nuestro traje típico",
+                cta_title: "¿Lista para tu sesión de fotos?",
+                cta_desc: "Escríbenos para consultar paquetes, disponibilidad y reservar tu fecha.",
+                btn_book: "Agendar Sesión"
+            },
+            en: {
+                btn_back: "Back to Finca Pamel",
+                hero_sub: "Immortalizing the beauty of our tradition",
+                intro_title: "Dress in Tradition",
+                intro_p1: "Experience the pride of wearing our National Costume. In our Folklore Studio in La Villa de Los Santos, we have luxury polleras, authentic traditional jewelry, and a team of experts ready to make you shine.",
+                intro_p2: "We take care of every detail, from makeup and tembleque styling to the perfect lighting to deliver a magazine-worthy photoshoot.",
+                amenities_title: "Our Services",
+                am_photo_title: "Professional Photography", am_photo_desc: "Studio lighting and high-quality editing.",
+                am_dress_title: "Pollera Rental", am_dress_desc: "Luxury marked, darned, and shaded polleras.",
+                am_jewel_title: "Traditional Jewelry", am_jewel_desc: "Sparkling chains, mosquetas, and combs.",
+                am_makeup_title: "Styling & Makeup", am_makeup_desc: "Tembleques and professional makeup included.",
+                gallery_title: "Our Empolleradas",
+                gallery_sub: "A glimpse into the art of wearing our traditional dress",
+                cta_title: "Ready for your photoshoot?",
+                cta_desc: "Write to us to check packages, availability, and book your date.",
+                btn_book: "Book Session"
+            },
+            fr: {
+                btn_back: "Retour à Finca Pamel",
+                hero_sub: "Immortaliser la beauté de notre tradition",
+                intro_title: "Habillez-vous de Tradition",
+                intro_p1: "Vivez la fierté de porter notre costume national. Dans notre Studio Folklorique à La Villa de Los Santos, nous avons des polleras de luxe, des bijoux traditionnels authentiques et une équipe d'experts prêts à vous faire briller.",
+                intro_p2: "Nous prenons soin de chaque détail, du maquillage et de la coiffure des tembleques à l'éclairage parfait pour vous offrir une séance photo digne d'un magazine.",
+                amenities_title: "Nos Services",
+                am_photo_title: "Photographie Professionnelle", am_photo_desc: "Éclairage de studio et retouche de haute qualité.",
+                am_dress_title: "Location de Polleras", am_dress_desc: "Polleras de luxe marquées, reprisies et ombrées.",
+                am_jewel_title: "Bijoux Traditionnels", am_jewel_desc: "Chaînes, mosquetas et peignes étincelants.",
+                am_makeup_title: "Coiffure & Maquillage", am_makeup_desc: "Tembleques et maquillage professionnel inclus.",
+                gallery_title: "Nos Empolleradas",
+                gallery_sub: "Un aperçu de l'art de porter notre tenue traditionnelle",
+                cta_title: "Prête pour votre séance photo ?",
+                cta_desc: "Écrivez-nous pour consulter les forfaits, la disponibilité et réserver votre date.",
+                btn_book: "Réserver la Séance"
+            },
+            de: {
+                btn_back: "Zurück zur Finca Pamel",
+                hero_sub: "Die Schönheit unserer Tradition verewigen",
+                intro_title: "Kleiden Sie sich in Tradition",
+                intro_p1: "Erleben Sie den Stolz, unsere Nationaltracht zu tragen. In unserem Folklore-Studio in La Villa de Los Santos haben wir luxuriöse Polleras, authentischen traditionellen Schmuck und ein Expertenteam, das Sie zum Strahlen bringt.",
+                intro_p2: "Wir kümmern uns um jedes Detail, vom Make-up und dem Tembleque-Styling bis zur perfekten Beleuchtung, um Ihnen ein magazinwürdiges Fotoshooting zu bieten.",
+                amenities_title: "Unsere Dienstleistungen",
+                am_photo_title: "Professionelle Fotografie", am_photo_desc: "Studiobeleuchtung und hochwertige Bearbeitung.",
+                am_dress_title: "Pollera-Verleih", am_dress_desc: "Luxuriöse markierte, gestopfte und schattierte Polleras.",
+                am_jewel_title: "Traditioneller Schmuck", am_jewel_desc: "Funkelnde Ketten, Mosquetas und Kämme.",
+                am_makeup_title: "Styling & Make-up", am_makeup_desc: "Tembleques und professionelles Make-up inklusive.",
+                gallery_title: "Unsere Empolleradas",
+                gallery_sub: "Ein Einblick in die Kunst, unsere traditionelle Tracht zu tragen",
+                cta_title: "Bereit für Ihr Fotoshooting?",
+                cta_desc: "Schreiben Sie uns, um Pakete und Verfügbarkeit zu prüfen und Ihr Datum zu buchen.",
+                btn_book: "Session Buchen"
+            }
+        };
+
+        function setLanguage(lang) {
+            const elements = document.querySelectorAll('[data-lang]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang][key]) element.textContent = translations[lang][key];
+            });
+        }
+
+        // --- DARK MODE LOGIC ---
+        function applyTheme(isDark) {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            if (isDark) {
+                body.classList.add('dark-mode');
+                icon.classList.remove('fa-moon'); icon.classList.add('fa-sun');
+            } else {
+                body.classList.remove('dark-mode');
+                icon.classList.remove('fa-sun'); icon.classList.add('fa-moon');
+            }
+        }
+        function toggleTheme() {
+            const isDarkNow = document.body.classList.contains('dark-mode');
+            applyTheme(!isDarkNow);
+        }
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        applyTheme(systemPrefersDark.matches);
+        systemPrefersDark.addEventListener('change', (e) => { applyTheme(e.matches); });
+    </script>
 </body>
 </html>
