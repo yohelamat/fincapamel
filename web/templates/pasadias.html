@@ -51,7 +51,7 @@
         .page-header { height: 350px; position: relative; overflow: hidden; }
         .page-header img { width: 100%; height: 100%; object-fit: cover; }
         .page-title { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; }
-        .page-title h2 { color: white !important; font-size: 3rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+        .page-title h2 { color: white !important; font-size: 3rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); text-align: center;}
 
         .detail-container { max-width: 900px; margin: 4rem auto; padding: 0 1.5rem; }
         .intro-text { text-align: center; margin-bottom: 2rem; }
@@ -91,10 +91,10 @@
             .controls { margin: 0; padding: 0; border: none; justify-content: center; width: 100%; margin-top: 10px;}
             .page-header { height: 250px; }
 
-     
             .page-title h2 { 
-                font-size: 2rem; /* Achicamos un poco la letra en celular */
-                padding: 0 20px; /* Le damos aire a los lados */
+                font-size: 2rem; 
+                padding: 0 20px; 
+            }
         }
         footer { background: #111; color: #aaa; text-align: center; padding: 2rem; margin-top: 4rem; }
     </style>
@@ -152,7 +152,7 @@
             <h3 style="margin-bottom: 1rem; font-size: 1.8rem;" data-lang="content_title">Diversión bajo el sol</h3>
             <p data-lang="content_desc_1">Ven a disfrutar de un día diferente rodeado de naturaleza. Nuestras instalaciones son perfectas para desconectar de la rutina y compartir tiempo de calidad con familia y amigos.</p>
             <br>
-            <p data-lang="content_desc_2">Contamos con una amplia piscina, áreas verdes para que los niños jueguen y ranchos para descansar.</p>
+            <p data-lang="content_desc_2">Contamos con una hermosa piscina, áreas verdes para que los niños jueguen, parques infantiles, canchas deportivas y la mejor granja de contacto de Azuero.</p>
         </div>
 
         <div class="amenities-grid">
@@ -171,10 +171,6 @@
             <div class="amenity-item">
                 <i class="fa-solid fa-shower"></i>
                 <span data-lang="feat_showers" style="font-weight: 600;">Vestidores y Duchas</span>
-            </div>
-            <div class="amenity-item">
-                <i class="fa-regular fa-clock"></i>
-                <span data-lang="feat_time" style="font-weight: 600;">9:00 AM - 5:00 PM</span>
             </div>
             <div class="amenity-item">
                 <i class="fa-solid fa-paw"></i>
@@ -210,46 +206,46 @@
     <script>
         const translations = {
             es: {
-                menu_home: "Inicio", menu_lodging: "Hospedaje", menu_daypass: "Pasadías", menu_events: "Eventos", menu_blog: "Blog", menu_contact: "Contacto",
+                menu_home: "Inicio", menu_lodging: "Hospedaje", menu_daypass: "Pasadías", menu_events: "Eventos", menu_blog: "Blog", menu_contact: "Contacto", menu_tours: "Tours",
                 page_title: "Pasadías Familiares",
                 content_title: "Diversión bajo el sol",
                 content_desc_1: "Ven a disfrutar de un día diferente rodeado de naturaleza. Nuestras instalaciones son perfectas para desconectar de la rutina y compartir tiempo de calidad con familia y amigos.",
-                content_desc_2: "Contamos con una amplia piscina, áreas verdes para que los niños jueguen y ranchos para descansar.",
+                content_desc_2: "Contamos con una hermosa piscina, áreas verdes para que los niños jueguen, parques infantiles, canchas deportivas y la mejor granja de contacto de Azuero.",
                 feat_pool: "Uso de Piscina", feat_bbq: "Área de BBQ", feat_green: "Áreas Verdes",
-                feat_showers: "Vestidores y Duchas", feat_time: "9:00 AM - 5:00 PM", feat_pet: "Pet Friendly",
+                feat_showers: "Vestidores y Duchas", feat_pet: "Pet Friendly",
                 gallery_title: "Galería de Pasadías",
                 btn_book: "Reservar Fecha"
             },
             en: {
-                menu_home: "Home", menu_lodging: "Lodging", menu_daypass: "Day Pass", menu_events: "Events", menu_blog: "Blog", menu_contact: "Contact",
+                menu_home: "Home", menu_lodging: "Lodging", menu_daypass: "Day Pass", menu_events: "Events", menu_blog: "Blog", menu_contact: "Contact", menu_tours: "Tours",
                 page_title: "Family Day Pass",
                 content_title: "Fun Under the Sun",
                 content_desc_1: "Come and enjoy a different day surrounded by nature. Our facilities are perfect for disconnecting from the routine and sharing quality time with family and friends.",
-                content_desc_2: "We have a large swimming pool, green areas for children to play, and huts to rest.",
+                content_desc_2: "We have a beautiful swimming pool, green areas for children to play, playgrounds, sports courts, and the best petting zoo in Azuero.",
                 feat_pool: "Swimming Pool", feat_bbq: "BBQ Area", feat_green: "Green Areas",
-                feat_showers: "Changing Rooms & Showers", feat_time: "9:00 AM - 5:00 PM", feat_pet: "Pet Friendly",
+                feat_showers: "Changing Rooms & Showers", feat_pet: "Pet Friendly",
                 gallery_title: "Day Pass Gallery",
                 btn_book: "Book Date"
             },
             fr: {
-                menu_home: "Accueil", menu_lodging: "Hébergement", menu_daypass: "Pass Journée", menu_events: "Événements", menu_blog: "Blog", menu_contact: "Contact",
+                menu_home: "Accueil", menu_lodging: "Hébergement", menu_daypass: "Pass Journée", menu_events: "Événements", menu_blog: "Blog", menu_contact: "Contact", menu_tours: "Tours",
                 page_title: "Pass Journée en Famille",
                 content_title: "Plaisir sous le soleil",
                 content_desc_1: "Venez profiter d'une journée différente en pleine nature. Nos installations sont parfaites pour déconnecter de la routine et partager du temps de qualité en famille ou entre amis.",
-                content_desc_2: "Nous disposons d'une grande piscine, d'espaces verts pour les enfants et de huttes pour se reposer.",
+                content_desc_2: "Nous disposons d'une belle piscine, d'espaces verts pour les enfants, d'aires de jeux, de terrains de sport et de la meilleure ferme de contact d'Azuero.",
                 feat_pool: "Piscine", feat_bbq: "Zone BBQ", feat_green: "Espaces Verts",
-                feat_showers: "Vestiaires et Douches", feat_time: "9:00 AM - 5:00 PM", feat_pet: "Animaux acceptés",
+                feat_showers: "Vestiaires et Douches", feat_pet: "Animaux acceptés",
                 gallery_title: "Galerie des Pass Journée",
                 btn_book: "Réserver une date"
             },
             de: {
-                menu_home: "Start", menu_lodging: "Unterkunft", menu_daypass: "Tagespass", menu_events: "Veranstaltungen", menu_blog: "Blog", menu_contact: "Kontakt",
+                menu_home: "Start", menu_lodging: "Unterkunft", menu_daypass: "Tagespass", menu_events: "Veranstaltungen", menu_blog: "Blog", menu_contact: "Kontakt", menu_tours: "Touren",
                 page_title: "Familien-Tagespass",
                 content_title: "Spaß in der Sonne",
                 content_desc_1: "Genießen Sie einen anderen Tag inmitten der Natur. Unsere Einrichtungen sind perfekt zum Abschalten vom Alltag und um wertvolle Zeit mit Familie und Freunden zu verbringen.",
-                content_desc_2: "Wir haben einen großen Swimmingpool, Grünflächen für Kinder und Hütten zum Ausruhen.",
+                content_desc_2: "Wir haben ein schönes Schwimmbad, Grünflächen für Kinder, Spielplätze, Sportplätze und den besten Streichelzoo in Azuero.",
                 feat_pool: "Schwimmbad", feat_bbq: "Grillplatz", feat_green: "Grünflächen",
-                feat_showers: "Umkleideräume & Duschen", feat_time: "9:00 AM - 5:00 PM", feat_pet: "Haustierfreundlich",
+                feat_showers: "Umkleideräume & Duschen", feat_pet: "Haustierfreundlich",
                 gallery_title: "Tagespass Galerie",
                 btn_book: "Datum reservieren"
             }

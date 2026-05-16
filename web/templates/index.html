@@ -173,6 +173,10 @@
             object-fit: cover; 
             object-position: center; 
         }
+        
+        @media (max-width: 768px) {
+            .hero-img { height: 250px; }
+        }
 
         .hero-overlay {
             position: absolute;
@@ -310,8 +314,6 @@
             /* Mostramos el botón en celulares */
             .hamburger { display: block; }
             
-            .hero-img { height: 250px; }
-            
             /* Ocultamos y estilizamos el menú para que se deslice */
             .nav-links { 
                 position: absolute;
@@ -423,7 +425,7 @@
                 <img src="{% static 'p1.jpg' %}" alt="Piscina">
                 <div class="card-info">
                     <h3 data-lang="serv_daypass">Pasadías y Piscina</h3>
-                    <p data-lang="serv_daypass_desc">Disfruta de nuestras instalaciones por un día.</p>
+                    <p data-lang="serv_daypass_desc">Disfruta de nuestras instalaciones cómo si fuera tu hogar.</p>
                     <span class="btn-ver-mas" data-lang="btn_more">Ver Detalles →</span>
                 </div>
             </a>
@@ -431,8 +433,8 @@
             <a href="{% url 'eventos' %}" class="card-link">
                 <img src="{% static 'evento1.jpeg' %}" alt="Eventos">
                 <div class="card-info">
-                    <h3 data-lang="serv_events">Eventos y Ranchos</h3>
-                    <p data-lang="serv_events_desc">Hamacas, brisa y espacios para reuniones.</p>
+                    <h3 data-lang="serv_events">Eventos</h3>
+                    <p data-lang="serv_events_desc">El mejor lugar para tus eventos al aire libre.</p>
                     <span class="btn-ver-mas" data-lang="btn_more">Ver Detalles →</span>
                 </div>
             </a>
@@ -486,7 +488,7 @@
     <section id="aliados" class="container" style="background: var(--bg-card); border-radius: 20px; box-shadow: 0 5px 20px var(--sombra); border: 1px solid var(--borde);">
         <div class="intro-text">
             <h2 data-lang="partners_title">Otras Experiencias de la Familia</h2>
-            <p data-lang="partners_subtitle">Descubre nuestros otros destinos en Panamá</p>
+            <p data-lang="partners_subtitle">Descubre otros proyectos que te pueden interesar.</p>
         </div>
 
         <div class="grid-cards">
@@ -494,7 +496,7 @@
                 <img src="{% static 'nuboso1.JPG' %}" alt="Casa Nuboso Boquete">
                 <div class="card-info">
                     <h3>Casa Nuboso Estate</h3>
-                    <p data-lang="nuboso_desc">Un escape en las tierras altas de Boquete. Clima perfecto, café y montañas.</p>
+                    <p data-lang="nuboso_desc">El mejor Airbnb de Boquete.</p>
                     <span class="btn-ver-mas" data-lang="btn_visit">Visitar Web →</span>
                 </div>
             </a>
@@ -502,8 +504,8 @@
             <a href="{% url 'studio' %}" class="card-link">
                 <img src="{% static 'studio1.jpg' %}" alt="Estudio Folklórico">
                 <div class="card-info">
-                    <h3 data-lang="pollera_title">Estudio Folklórico</h3>
-                    <p data-lang="pollera_desc">El lugar especializado para tus sesiones de fotos con Polleras en Los Santos.</p>
+                    <h3 data-lang="pollera_title">Studio Polleras</h3>
+                    <p data-lang="pollera_desc">Especialistas en sesiones de fotos en pollera y alquiler de indumentaria folklórica para toda la familia.</p>
                     <span class="btn-ver-mas" data-lang="btn_visit">Visitar Web →</span>
                 </div>
             </a>
@@ -541,17 +543,17 @@
                 serv_lodging: "Hospedaje Familiar",
                 serv_lodging_desc: "Habitaciones con aire acondicionado y baño privado.",
                 serv_daypass: "Pasadías y Piscina",
-                serv_daypass_desc: "Disfruta de nuestras instalaciones por un día.",
-                serv_events: "Eventos y Ranchos",
-                serv_events_desc: "Hamacas, brisa y espacios para reuniones.",
+                serv_daypass_desc: "Disfruta de nuestras instalaciones cómo si fuera tu hogar.",
+                serv_events: "Eventos",
+                serv_events_desc: "El mejor lugar para tus eventos al aire libre.",
                 serv_tours: "Tours Guiados",
                 serv_tours_desc: "Explora la naturaleza y la historia arqueológica.",
                 btn_more: "Ver Detalles →",
                 partners_title: "Otras Experiencias de la Familia",
-                partners_subtitle: "Descubre nuestros otros destinos en Panamá",
-                nuboso_desc: "Un escape en las tierras altas de Boquete. Clima perfecto, café y montañas.",
-                pollera_title: "Estudio Folklórico",
-                pollera_desc: "El lugar especializado para tus sesiones de fotos con Polleras en Los Santos.",
+                partners_subtitle: "Descubre otros proyectos que te pueden interesar.",
+                nuboso_desc: "El mejor Airbnb de Boquete.",
+                pollera_title: "Studio Polleras",
+                pollera_desc: "Especialistas en sesiones de fotos en pollera y alquiler de indumentaria folklórica para toda la familia.",
                 arosemena_title: "Casa Arosemena Córdoba",
                 arosemena_desc: "Una joya histórica colonial en el corazón de La Villa de Los Santos.",
                 btn_visit: "Visitar Web →",
@@ -575,17 +577,17 @@
                 serv_lodging: "Family Lodging",
                 serv_lodging_desc: "Rooms with air conditioning and private bathroom.",
                 serv_daypass: "Day Pass & Pool",
-                serv_daypass_desc: "Enjoy our facilities for a day.",
-                serv_events: "Events & Huts",
-                serv_events_desc: "Hammocks, breeze, and spaces for gatherings.",
+                serv_daypass_desc: "Enjoy our facilities as if it were your home.",
+                serv_events: "Events",
+                serv_events_desc: "The best place for your outdoor events.",
                 serv_tours: "Guided Tours",
                 serv_tours_desc: "Explore nature and archaeological history.",
                 btn_more: "View Details →",
                 partners_title: "Our Sister Experiences",
-                partners_subtitle: "Discover our other destinations in Panama",
-                nuboso_desc: "An escape in the highlands of Boquete. Perfect weather, coffee, and mountains.",
-                pollera_title: "Folklore Studio",
-                pollera_desc: "The specialized place for your Pollera photo sessions in Los Santos.",
+                partners_subtitle: "Discover other projects that might interest you.",
+                nuboso_desc: "The best Airbnb in Boquete.",
+                pollera_title: "Studio Polleras",
+                pollera_desc: "Specialists in pollera photo sessions and traditional clothing rental for the whole family.",
                 arosemena_title: "Casa Arosemena Córdoba",
                 arosemena_desc: "A historical colonial jewel in the heart of La Villa de Los Santos.",
                 btn_visit: "Visit Website →",
@@ -609,17 +611,17 @@
                 serv_lodging: "Hébergement Familial",
                 serv_lodging_desc: "Chambres avec climatisation et salle de bain privée.",
                 serv_daypass: "Pass Journée & Piscine",
-                serv_daypass_desc: "Profitez de nos installations pour une journée.",
-                serv_events: "Événements & Huttes",
-                serv_events_desc: "Hamacs, brise et espaces pour réunions.",
+                serv_daypass_desc: "Profitez de nos installations comme si vous étiez chez vous.",
+                serv_events: "Événements",
+                serv_events_desc: "Le meilleur endroit pour vos événements en plein air.",
                 serv_tours: "Visites Guidées",
                 serv_tours_desc: "Explorez la nature et l'histoire archéologique.",
                 btn_more: "Voir Détails →",
                 partners_title: "Nos Autres Expériences",
-                partners_subtitle: "Découvrez nos autres destinations au Panama",
-                nuboso_desc: "Une évasion sur les hautes terres de Boquete. Climat parfait, café et montagnes.",
-                pollera_title: "Studio Folklorique",
-                pollera_desc: "L'endroit spécialisé pour vos séances photo avec Polleras à Los Santos.",
+                partners_subtitle: "Découvrez d'autres projets qui pourraient vous intéresser.",
+                nuboso_desc: "Le meilleur Airbnb de Boquete.",
+                pollera_title: "Studio Polleras",
+                pollera_desc: "Spécialistes des séances photo en pollera et location de vêtements traditionnels pour toute la famille.",
                 arosemena_title: "Casa Arosemena Córdoba",
                 arosemena_desc: "Un joyau colonial historique au cœur de La Villa de Los Santos.",
                 btn_visit: "Visiter le Site →",
@@ -643,17 +645,17 @@
                 serv_lodging: "Familienunterkunft",
                 serv_lodging_desc: "Zimmer mit Klimaanlage und eigenem Bad.",
                 serv_daypass: "Tagespass & Pool",
-                serv_daypass_desc: "Genießen Sie unsere Einrichtungen für einen Tag.",
-                serv_events: "Veranstaltungen & Hütten",
-                serv_events_desc: "Hängematten, Brise und Räume für Versammlungen.",
+                serv_daypass_desc: "Genießen Sie unsere Einrichtungen, als wäre es Ihr Zuhause.",
+                serv_events: "Veranstaltungen",
+                serv_events_desc: "Der beste Ort für Ihre Outdoor-Veranstaltungen.",
                 serv_tours: "Geführte Touren",
                 serv_tours_desc: "Erkunden Sie die Natur und die archäologische Geschichte.",
                 btn_more: "Details anzeigen →",
                 partners_title: "Weitere Erlebnisse der Familie",
-                partners_subtitle: "Entdecken Sie unsere anderen Ziele in Panama",
-                nuboso_desc: "Eine Flucht in das Hochland von Boquete. Perfektes Wetter, Kaffee und Berge.",
-                pollera_title: "Folklore-Studio",
-                pollera_desc: "Der spezialisierte Ort für Ihre Pollera-Fotoshootings in Los Santos.",
+                partners_subtitle: "Entdecken Sie andere Projekte, die Sie interessieren könnten.",
+                nuboso_desc: "Das beste Airbnb in Boquete.",
+                pollera_title: "Studio Polleras",
+                pollera_desc: "Spezialisten für Pollera-Fotoshootings und den Verleih traditioneller Kleidung für die ganze Familie.",
                 arosemena_title: "Casa Arosemena Córdoba",
                 arosemena_desc: "Ein historisches koloniales Juwel im Herzen von La Villa de Los Santos.",
                 btn_visit: "Webseite besuchen →",

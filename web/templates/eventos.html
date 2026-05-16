@@ -23,7 +23,6 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        /* Agregué overflow-x: hidden para evitar scroll horizontal con el menú en móviles */
         body { font-family: 'Open Sans', sans-serif; color: var(--texto-principal); background: var(--bg-body); line-height: 1.6; transition: 0.3s; overflow-x: hidden; }
         img { max-width: 100%; display: block; }
         a { text-decoration: none; color: inherit; }
@@ -53,7 +52,6 @@
         .page-header img { width: 100%; height: 100%; object-fit: cover; }
         .page-title { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; text-align: center; padding: 1rem;}
         
-        /* Centrado de texto garantizado */
         .page-title h2 { color: white !important; font-size: clamp(2rem, 5vw, 3.5rem); text-shadow: 2px 2px 5px rgba(0,0,0,0.5); text-align: center; }
 
         .detail-container { max-width: 900px; margin: 4rem auto; padding: 0 1.5rem; }
@@ -197,11 +195,7 @@
             </div>
             <div class="amenity-item">
                 <i class="fa-solid fa-utensils"></i>
-                <span data-lang="feat_catering" style="font-weight: 600;">Catering y Cocina</span>
-            </div>
-            <div class="amenity-item">
-                <i class="fa-solid fa-champagne-glasses"></i>
-                <span data-lang="feat_social" style="font-weight: 600;">Eventos Sociales</span>
+                <span data-lang="feat_catering" style="font-weight: 600;">Catering de su preferencia</span>
             </div>
         </div>
 
@@ -251,46 +245,46 @@
     <script>
         const translations = {
             es: {
-                menu_home: "Inicio", menu_lodging: "Hospedaje", menu_daypass: "Pasadías", menu_events: "Eventos", menu_blog: "Blog", menu_contact: "Contacto",
+                menu_home: "Inicio", menu_lodging: "Hospedaje", menu_daypass: "Pasadías", menu_events: "Eventos", menu_blog: "Blog", menu_contact: "Contacto", menu_tours: "Tours",
                 page_title: "Eventos y Celebraciones",
                 content_title: "El escenario perfecto para tus recuerdos",
                 content_desc_1: "Finca Pamel ofrece un entorno mágico e inigualable en Azuero para celebrar la vida. Ya sea una boda de ensueño al atardecer, un memorable quinceaños, recepciones de bautizo o eventos sociales, nuestras áreas verdes y ranchos se adaptan a tus sueños.",
                 content_desc_2: "Contamos con espacios versátiles, capacidad para grupos grandes y opciones que combinan la elegancia con nuestras tradiciones panameñas.",
                 feat_weddings: "Bodas y Quinceaños", feat_capacity: "Gran Capacidad", feat_photos: "Paisajes Fotográficos",
-                feat_music: "Música Permitida", feat_catering: "Catering y Cocina", feat_social: "Eventos Sociales",
+                feat_music: "Música Permitida", feat_catering: "Catering de su preferencia",
                 gallery_title: "Galería de Eventos",
                 btn_quote: "Cotizar tu Evento"
             },
             en: {
-                menu_home: "Home", menu_lodging: "Lodging", menu_daypass: "Day Pass", menu_events: "Events", menu_blog: "Blog", menu_contact: "Contact",
+                menu_home: "Home", menu_lodging: "Lodging", menu_daypass: "Day Pass", menu_events: "Events", menu_blog: "Blog", menu_contact: "Contact", menu_tours: "Tours",
                 page_title: "Events & Celebrations",
                 content_title: "The perfect setting for your memories",
                 content_desc_1: "Finca Pamel offers a magical and unique environment in Azuero to celebrate life. Whether it's a dream sunset wedding, a memorable sweet fifteen, baptism receptions, or social events, our green areas and huts adapt to your dreams.",
                 content_desc_2: "We have versatile spaces, capacity for large groups, and options that combine elegance with our Panamanian traditions.",
                 feat_weddings: "Weddings & Sweet 15", feat_capacity: "Large Capacity", feat_photos: "Photographic Landscapes",
-                feat_music: "Music Allowed", feat_catering: "Catering & Kitchen", feat_social: "Social Events",
+                feat_music: "Music Allowed", feat_catering: "Catering of your choice",
                 gallery_title: "Events Gallery",
                 btn_quote: "Get a Quote"
             },
             fr: {
-                menu_home: "Accueil", menu_lodging: "Hébergement", menu_daypass: "Pass Journée", menu_events: "Événements", menu_blog: "Blog", menu_contact: "Contact",
+                menu_home: "Accueil", menu_lodging: "Hébergement", menu_daypass: "Pass Journée", menu_events: "Événements", menu_blog: "Blog", menu_contact: "Contact", menu_tours: "Tours",
                 page_title: "Événements et Célébrations",
                 content_title: "Le cadre parfait pour vos souvenirs",
                 content_desc_1: "Finca Pamel offre un environnement magique et unique à Azuero pour célébrer la vie. Qu'il s'agisse d'un mariage de rêve au coucher du soleil, de fêtes de quinze ans, de réceptions de baptême ou d'événements sociaux, nos espaces verts s'adaptent à vos rêves.",
                 content_desc_2: "Nous disposons d'espaces polyvalents, d'une grande capacité pour les groupes et d'options alliant l'élégance à nos traditions panaméennes.",
                 feat_weddings: "Mariages & 15 Ans", feat_capacity: "Grande Capacité", feat_photos: "Paysages Photographiques",
-                feat_music: "Musique Autorisée", feat_catering: "Traiteur & Cuisine", feat_social: "Événements Sociaux",
+                feat_music: "Musique Autorisée", feat_catering: "Traiteur de votre choix",
                 gallery_title: "Galerie d'Événements",
                 btn_quote: "Demander un Devis"
             },
             de: {
-                menu_home: "Start", menu_lodging: "Unterkunft", menu_daypass: "Tagespass", menu_events: "Veranstaltungen", menu_blog: "Blog", menu_contact: "Kontakt",
+                menu_home: "Start", menu_lodging: "Unterkunft", menu_daypass: "Tagespass", menu_events: "Veranstaltungen", menu_blog: "Blog", menu_contact: "Kontakt", menu_tours: "Touren",
                 page_title: "Veranstaltungen & Feiern",
                 content_title: "Der perfekte Rahmen für Ihre Erinnerungen",
                 content_desc_1: "Die Finca Pamel bietet eine magische und unvergleichliche Umgebung in Azuero, um das Leben zu feiern. Ob eine Traumhochzeit bei Sonnenuntergang, ein unvergesslicher 15. Geburtstag, Taufe oder gesellschaftliche Veranstaltungen, unsere Grünflächen passen sich Ihren Träumen an.",
                 content_desc_2: "Wir verfügen über vielseitige Räumlichkeiten, Kapazitäten für große Gruppen und Optionen, die Eleganz mit unseren panamaischen Traditionen verbinden.",
                 feat_weddings: "Hochzeiten & Geburtstage", feat_capacity: "Große Kapazität", feat_photos: "Fotografische Landschaften",
-                feat_music: "Musik erlaubt", feat_catering: "Catering & Küche", feat_social: "Gesellschaftliche Events",
+                feat_music: "Musik erlaubt", feat_catering: "Catering Ihrer Wahl",
                 gallery_title: "Veranstaltungsgalerie",
                 btn_quote: "Angebot einholen"
             }
