@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*ij&966o&)v3y35u4p=r_l3-pz+o9-jfe9b5u2_+1uf_)7#(xm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['fincapamel.com', '[www.fincapamel.com](https://www.fincapamel.com)']
 
 
 # Application definition
@@ -120,11 +120,11 @@ import os
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Media files (Las fotos que sube el cliente)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 LOGIN_REDIRECT_URL = 'panel'
 LOGOUT_REDIRECT_URL = 'index'
