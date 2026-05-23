@@ -152,6 +152,17 @@
         .modal-text { font-size: 1.1rem; line-height: 1.8; color: var(--texto-secundario); white-space: pre-wrap; }
 
         /* --- RESPONSIVE --- */
+
+        /* Auto-ajuste de imágenes dentro de la noticia */
+        .modal-text img, .blog-content img {
+            max-width: 100% !important;
+            height: auto !important;
+            border-radius: 8px;
+            object-fit: contain;
+            display: block;
+            margin: 10px auto; /* Para centrarlas bonito */
+        }
+        
         @media (max-width: 768px) {
             header { padding: 0.5rem 5%; height: auto; }
             nav { flex-wrap: wrap; }

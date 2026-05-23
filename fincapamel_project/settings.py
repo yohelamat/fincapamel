@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*ij&966o&)v3y35u4p=r_l3-pz+o9-jfe9b5u2_+1uf_)7#(xm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = False    
 
-ALLOWED_HOSTS = ['fincapamel.com', '[www.fincapamel.com](https://www.fincapamel.com)']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'fincapamel.com', '[www.fincapamel.com](https://www.fincapamel.com)']
 
 
 # Application definition
